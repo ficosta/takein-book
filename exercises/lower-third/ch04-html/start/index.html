@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lower third — capítulo 4</title>
+</head>
+<body>
+
+  <!--
+    PASSO 1 — Monte a árvore da lower third.
+
+    Numa plataforma gráfica, esta seria a árvore de cena:
+
+      lt
+      ├── lt-ghost         (texto: 9, o número vazado atrás)
+      ├── lt-kicker
+      │   └── lt-role      (texto: Atacante)
+      ├── lt-bar
+      │   └── lt-name      (texto: Rafael Torres)
+      ├── lt-sub
+      │   ├── lt-team      (texto: CD Meridian)
+      │   ├── lt-dot       (sem texto: o ponto entre os dois)
+      │   └── lt-shirt     (texto: Camisa 9)
+      └── lt-underline     (sem texto: o sublinhado)
+
+    Em HTML, cada container vira um <div class="...">. Um trecho de
+    texto dentro de uma faixa vira um <span class="...">.
+    Um container "dentro" de outro vira uma tag dentro da outra.
+
+    O fantasma e o kicker já estão prontos. Complete o resto.
+  -->
+
+  <div class="lt">
+    <div class="lt-ghost">9</div>
+    <div class="lt-kicker">
+      <span class="lt-role">Atacante</span>
+    </div>
+
+    <!-- escreva aqui a lt-bar, com o nome dentro -->
+
+    <!-- escreva aqui a lt-sub, com os três spans -->
+
+    <!-- escreva aqui o lt-underline, vazio -->
+
+  </div>
+
+</body>
+</html>

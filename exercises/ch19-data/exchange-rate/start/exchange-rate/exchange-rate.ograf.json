@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.exchange-rate",
+  "version": "1.0.0",
+  "name": "Cotação ao vivo",
+  "description": "Lê a cotação de um arquivo JSON a cada poucos segundos.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "interval": {
+        "type": "integer",
+        "title": "Atualizar a cada (segundos)",
+        "minimum": 2,
+        "maximum": 60,
+        "default": 5
+      }
+    }
+  }
+}

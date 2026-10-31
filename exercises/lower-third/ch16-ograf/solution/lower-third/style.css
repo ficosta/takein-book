@@ -1,0 +1,158 @@
+/* Lower third — o "material" e a "geometria" do gráfico.
+ *
+ * As cores, as fontes e os tamanhos vêm do tokens.css, que vem dentro do
+ * pacote junto com a pasta fonts/. No ar não existe internet: nada de
+ * Google Fonts nem CDN. */
+
+/* A página é do renderizador, e ela pode mudar o box-sizing de tudo
+ * (* { box-sizing: border-box }). As medidas daqui contam o padding
+ * por fora, então o gráfico fixa o modelo dele. */
+.lt,
+.lt * {
+  box-sizing: content-box;
+}
+
+/* O container: ancorado na área de título, embaixo à esquerda.
+ * É a referência de posição de todas as peças. */
+.lt {
+  font-family: var(--font-data);
+  position: absolute;
+  left: var(--safe-x);             /* 96 px da esquerda */
+  bottom: var(--bottom-y);         /* 96 px de baixo */
+  width: 820px;
+  height: 190px;
+  filter: var(--shadow);           /* sombra dura no gráfico inteiro, não em cada placa */
+  visibility: hidden;              /* começa fora do ar: quem mostra é a animação */
+}
+
+/* O número fantasma: atrás de tudo, encostado à direita. */
+.lt-ghost {
+  font-family: var(--font-display);
+  font-size: var(--size-ghost);
+  line-height: 1;
+  color: transparent;              /* só o contorno: o número vazado */
+  -webkit-text-stroke: 3px var(--accent);
+  opacity: 0.28;
+  transform: skewX(var(--skew));
+  position: absolute;
+  right: -10px;
+  bottom: 16px;
+  z-index: 0;
+}
+
+/* As três placas: posição pela base, texto centrado na vertical com flex. */
+.lt-kicker {
+  height: var(--h-strip);
+  padding: 0 26px 0 20px;
+  background: var(--accent);
+  position: absolute;
+  left: 26px;
+  bottom: 136px;                   /* encosta no topo da placa do nome */
+  z-index: 3;
+  display: flex;
+  align-items: center;
+}
+
+.lt-role {
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-accent);
+  white-space: nowrap;
+}
+
+.lt-bar {
+  height: var(--h-bar);
+  padding: 0 120px 0 34px;
+  /* corte seco: ink até 78%, ink-2 depois */
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%);
+  position: absolute;
+  left: 0;
+  bottom: 44px;
+  z-index: 2;
+  min-width: 600px;                /* nome curto não deixa a placa pequena */
+  overflow: hidden;                /* o nome entra "de dentro" da placa */
+  display: flex;
+  align-items: center;
+}
+
+/* A lâmina de destaque na borda esquerda: um elemento que o CSS
+ * cria sozinho, sem tag no HTML. */
+.lt-bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--blade);
+  background: var(--accent);
+}
+
+.lt-name {
+  font-family: var(--font-display);
+  font-size: var(--size-display);
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.lt-sub {
+  height: var(--h-strip);
+  padding: 0 26px;
+  background: var(--primary);
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lt-team,
+.lt-shirt {
+  font-size: var(--size-data);
+  font-weight: 600;
+  letter-spacing: var(--track-data);
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+/* O ponto entre o time e a camisa. Dentro de um flex, o span
+ * vazio aceita largura e altura. */
+.lt-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+
+.lt-underline {
+  width: 420px;
+  height: var(--rule);
+  background: var(--accent);
+  position: absolute;
+  left: 10px;
+  bottom: -8px;                    /* 8 px abaixo da sub-barra */
+}
+
+/* O ângulo do sistema: um só, para todas as placas. */
+.lt-kicker,
+.lt-bar,
+.lt-sub,
+.lt-underline {
+  transform: skewX(var(--skew));
+  transform-origin: left bottom;
+}
+
+/* O texto e o ponto voltam a ficar retos dentro da placa inclinada. */
+.lt-role,
+.lt-name,
+.lt-team,
+.lt-dot,
+.lt-shirt {
+  transform: skewX(var(--unskew));
+}

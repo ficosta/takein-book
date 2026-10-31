@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ícone ao vivo</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* O bug: canto de cima, à direita da área de título. */
+    .bug {
+      position: absolute; right: var(--safe-x); top: var(--safe-y);
+      height: var(--h-plate); display: flex; align-items: center; gap: 14px;
+      padding: 0 26px 0 20px; background: var(--ink);
+      border-left: var(--blade) solid var(--accent);
+      transform: skewX(var(--skew)); transform-origin: right top;
+      filter: var(--shadow);
+    }
+    /* O ícone e o texto voltam a ficar retos dentro da placa. */
+    .icon, .bug-label { transform: skewX(var(--unskew)); }
+    .bug-label {
+      font: 700 var(--size-data) var(--font-data);
+      letter-spacing: var(--track-label); color: var(--paper);
+    }
+
+    /* currentColor, dentro do SVG, é a cor definida aqui. */
+    .icon { width: 50px; color: var(--live); }
+  </style>
+</head>
+<body>
+
+  <div class="bug">
+    <svg class="icon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="10" fill="currentColor"/>
+
+      <!-- Ondas da esquerda: arcos de raio 22 e 38. -->
+      <path d="M 34 34 A 22 22 0 0 0 34 66
+               M 22 22 A 38 38 0 0 0 22 78"
+            fill="none" stroke="currentColor"
+            stroke-width="6" stroke-linecap="round"/>
+
+      <!-- Ondas da direita: o espelho, com a varredura trocada. -->
+      <path d="M 66 34 A 22 22 0 0 1 66 66
+               M 78 22 A 38 38 0 0 1 78 78"
+            fill="none" stroke="currentColor"
+            stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <span class="bug-label">AO VIVO</span>
+  </div>
+
+</body>
+</html>

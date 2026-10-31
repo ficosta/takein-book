@@ -1,0 +1,103 @@
+/* TAKE IN · sistema visual dos exemplos.
+ *
+ * Fonte da verdade das cores, fontes, medidas e tempos de todos os gráficos
+ * do livro. Cada pacote OGraf leva uma cópia deste arquivo (no ar não existe
+ * internet), e `npm run shared:check` confere se as cópias estão iguais.
+ *
+ * Duas peles com a mesma geometria:
+ *   liga  (padrão)            esportes: o placar, a lower third com número
+ *   news  [data-skin="news"]  jornalismo: a família News dos capítulos 21–25
+ * Trocar de pele é trocar só estes tokens. Nenhum gráfico escreve cor solta. */
+
+@font-face {
+  font-family: 'Anton';
+  font-weight: 400;
+  font-display: block;           /* nunca mostrar uma fonte substituta no ar */
+  src: url('./fonts/Anton-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 500;
+  font-display: block;
+  src: url('./fonts/BarlowCondensed-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 600;
+  font-display: block;
+  src: url('./fonts/BarlowCondensed-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-weight: 700;
+  font-display: block;
+  src: url('./fonts/BarlowCondensed-Bold.woff2') format('woff2');
+}
+
+:root {
+  /* ── Cor: pele liga ─────────────────────────────────────── */
+  --ink: #160431;          /* placa principal */
+  --ink-2: #22094b;        /* segunda placa, cauda da barra */
+  --primary: #6d14f2;      /* sub-barra, placar */
+  --accent: #c8f71d;       /* kicker, lâmina, sublinhado, número vazado */
+  --paper: #f6f2ff;        /* texto sobre placa escura */
+  --dim: #b9a6e8;          /* texto secundário */
+  --faint: #8f7bbf;        /* rótulos discretos */
+  --on-accent: var(--ink); /* texto sobre a cor de destaque */
+
+  /* Cores de significado: nunca decoram, só avisam. */
+  --live: #ff3355;         /* AO VIVO, urgente, cartão vermelho */
+  --warning: #ffcf24;      /* atenção, cartão amarelo */
+  --up: #2ee59d;           /* alta */
+  --down: #ff3355;         /* queda */
+
+  /* ── Fonte ──────────────────────────────────────────────── */
+  --font-display: 'Anton', 'Impact', sans-serif;               /* nomes, números */
+  --font-data: 'Barlow Condensed', 'Arial Narrow', sans-serif; /* rótulos, dados */
+
+  /* Escala de tipo (px em 1080p). Nada fora desta lista. */
+  --size-ghost: 230px;     /* número vazado atrás da lower third */
+  --size-ghost-s: 150px;   /* número/sigla vazada em placa menor (locator) */
+  --size-hero: 96px;       /* título de tela cheia */
+  --size-display: 58px;    /* nome na barra */
+  --size-score: 38px;      /* placar, valor em destaque */
+  --size-data-l: 30px;     /* sigla de time, valor */
+  --size-data: 22px;       /* sub-barra, linha de tabela */
+  --size-label: 20px;      /* kicker, rótulo */
+
+  --track-label: 0.16em;   /* espaçamento de rótulo em caixa alta */
+  --track-data: 0.08em;
+
+  /* ── Geometria ──────────────────────────────────────────── */
+  --skew: -12deg;          /* o único ângulo do sistema */
+  --unskew: 12deg;         /* desfaz a inclinação no texto */
+  --shadow: drop-shadow(6px 8px 0 rgb(0 0 0 / 0.35)); /* sombra dura, sem desfoque */
+  --blade: 10px;           /* lâmina de destaque na borda */
+  --rule: 4px;             /* sublinhado */
+
+  /* Alturas das placas: só estas. */
+  --h-bar: 92px;           /* barra do nome */
+  --h-plate: 62px;         /* tudo da linha de cima: placar, bug, relógio */
+  --h-strip: 40px;         /* kicker, sub-barra, linha de tabela */
+
+  /* Área de título (EBU R 95: 5 % de 1920 × 1080). Tudo ancora aqui. */
+  --safe-x: 96px;
+  --safe-y: 54px;
+  --bottom-y: 96px;        /* base da linha de baixo (lower third, locator, hashtag) */
+
+  /* ── Movimento ──────────────────────────────────────────── */
+  --ease-in: cubic-bezier(0.16, 1, 0.3, 1);    /* entrada: rápida e assenta (GSAP: expo.out) */
+  --ease-out: cubic-bezier(0.55, 0, 0.8, 0.2); /* saída: acelera e some (GSAP: power3.in) */
+}
+
+/* ── Pele news: mesma geometria, outras cores ─────────────── */
+[data-skin="news"] {
+  --ink: #0b1a2c;
+  --ink-2: #14304f;
+  --primary: #1d5fb8;
+  --accent: #ffb81c;
+  --paper: #f3f6fb;
+  --dim: #9fb3cc;
+  --faint: #6f86a3;
+  --on-accent: var(--ink);
+}

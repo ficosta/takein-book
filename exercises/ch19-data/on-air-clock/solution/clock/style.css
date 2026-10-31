@@ -1,0 +1,33 @@
+/* Relógio: linha de cima, à direita, 62 px como o bug AO VIVO.
+   Pele news. Ancorado à direita, inclina a partir do canto de
+   cima à direita, para entrar na área segura. */
+
+.clk {
+  position: absolute; right: var(--safe-x); top: var(--safe-y);
+  filter: var(--shadow);
+  visibility: hidden;
+}
+.clk-row {
+  display: flex; height: var(--h-plate);
+  transform: skewX(var(--skew)); transform-origin: right top;
+}
+.clk-row > div { position: relative; display: flex; align-items: center; overflow: hidden; }
+.clk-up { display: inline-block; transform: skewX(var(--unskew)); }
+
+/* O fuso, com a lâmina à esquerda. */
+.clk-zone { padding: 0 22px 0 30px; background: var(--ink-2); }
+.clk-zone::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--blade); background: var(--accent);
+}
+.clk-zone span {
+  font: 600 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--dim); white-space: nowrap;
+}
+
+/* A hora: dígitos de largura igual, para nada tremer a cada segundo. */
+.clk-time { padding: 0 22px; background: var(--ink); }
+.clk-time span {
+  font: var(--size-score) var(--font-display); letter-spacing: .03em;
+  color: var(--paper); font-variant-numeric: tabular-nums;
+}

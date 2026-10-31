@@ -1,0 +1,12 @@
+# .gitignore modelo para um pacote de gráficos.
+# Copie para a pasta do pacote com o nome ".gitignore".
+
+# Arquivos que o sistema cria sozinho
+.DS_Store
+Thumbs.db
+
+# Os zips são gerados a partir da pasta: não precisam de histórico
+*.zip
+
+# Dependências, se um dia você usar ferramentas com npm
+node_modules/

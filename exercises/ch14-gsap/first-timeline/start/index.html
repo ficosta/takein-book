@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Primeira timeline</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    body { margin: 0; font-family: var(--font-data); }
+
+    /* O quadro de 1920 × 1080, com os resultados no centro. */
+    .stage { width: 1920px; height: 1080px; display: grid; place-items: center; }
+    .res { width: 900px; filter: var(--shadow); }
+
+    /* Cada placa inclina só o fundo (::before); o texto fica reto. */
+    .res-title, .res-card { position: relative; isolation: isolate; display: flex; align-items: center; }
+    .res-title::before, .res-card::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; transform: skewX(var(--skew)); background: var(--ink);
+    }
+    .res-title { height: var(--h-bar); padding: 0 34px;
+                 font: var(--size-display) var(--font-display); letter-spacing: .015em; color: var(--paper); }
+    .res-title::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--blade);
+                        background: var(--accent); transform: skewX(var(--skew)); }
+    .res-underline { width: 420px; height: var(--rule); margin: 8px 0 20px 10px; background: var(--accent); }
+
+    .res-card { display: grid; grid-template-columns: 1fr 140px 1fr; height: var(--h-plate); margin-bottom: 8px;
+                font-size: var(--size-data-l); font-weight: 700; letter-spacing: var(--track-data); color: var(--paper); }
+    .res-card::before { background: var(--ink-2); }
+    .res-card span { text-align: center; }
+    .res-card .res-score { align-self: stretch; display: flex; align-items: center; justify-content: center;
+                           background: var(--primary); font: var(--size-score) var(--font-display);
+                           font-variant-numeric: tabular-nums; }
+
+    /* Os botões ficam abaixo do quadro: não aparecem no ar. */
+    .controls { display: flex; gap: 12px; padding: 24px var(--safe-x); }
+    .controls button { font: 600 var(--size-data) var(--font-data); padding: 8px 18px; }
+  </style>
+</head>
+<body>
+
+  <div class="stage">
+    <div class="res">
+      <div class="res-title">RESULTADOS DA RODADA</div>
+      <div class="res-underline"></div>
+      <div class="res-card"><span>MER</span><span class="res-score">2 : 1</span><span>ATL</span></div>
+      <div class="res-card"><span>AUR</span><span class="res-score">0 : 0</span><span>NOR</span></div>
+      <div class="res-card"><span>VAL</span><span class="res-score">3 : 2</span><span>POR</span></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="play">Tocar</button>
+    <button id="reverse">Voltar</button>
+    <button id="slow">Câmera lenta</button>
+  </div>
+
+  <!-- Módulo: abra pelo Live Server. -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>

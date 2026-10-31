@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.live-bug",
+  "version": "1.0.0",
+  "name": "Bug AO VIVO",
+  "description": "Selo AO VIVO com relógio no canto superior direito, com ponto pulsando.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnail.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Texto",
+        "gddType": "single-line",
+        "default": "AO VIVO"
+      }
+    }
+  }
+}

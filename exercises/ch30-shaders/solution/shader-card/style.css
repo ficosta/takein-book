@@ -1,0 +1,169 @@
+/* Cartela com shader — capítulo 30.
+ *
+ * Duas camadas: atrás, o <canvas> onde o shader pinta o fundo; na
+ * frente, o texto em HTML, com as fontes e as placas do sistema.
+ * O shader desenha o que o CSS não sabe desenhar; o texto continua
+ * sendo texto. */
+
+.card,
+.card * {
+  box-sizing: content-box;
+}
+
+/* Tela cheia: o fundo cobre o quadro inteiro. */
+.card {
+  font-family: var(--font-data);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  visibility: hidden;              /* começa fora do ar */
+}
+
+/* O canvas tem 1920 × 1080 pixels de verdade (width e height no
+ * HTML) e ocupa 1920 × 1080 na página: um pixel do shader é um pixel
+ * da saída. */
+.card-canvas,
+.card-backdrop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+}
+
+/* Plano B, sem WebGL: o mesmo fundo, parado, só com CSS.
+ * 102° = 90° + 12°: as faixas ficam no ângulo do sistema. */
+.card-backdrop {
+  display: none;
+  opacity: 0;
+  will-change: opacity;
+  background: repeating-linear-gradient(102deg,
+    var(--ink) 0 132px, var(--ink-2) 132px 160px);
+}
+/* A placa primária da direita, com a lâmina na borda. */
+.card-backdrop::after {
+  content: "";
+  position: absolute;
+  left: 1560px;
+  top: 0;
+  width: 600px;
+  height: 1080px;
+  background: var(--primary);
+  border-left: var(--blade) solid var(--accent);
+  transform: skewX(var(--skew));
+  transform-origin: left top;
+}
+.card.no-webgl .card-backdrop { display: block; }
+.card.no-webgl .card-canvas { display: none; }
+
+/* O bloco de texto: tela cheia, conteúdo com até 1440 px, centrado. */
+.card-content {
+  position: absolute;
+  left: 240px;
+  top: 412px;
+  width: 1440px;
+  height: 256px;
+  filter: var(--shadow);
+}
+
+/* Placas inclinadas, com o texto de volta ao prumo. */
+.card-kicker,
+.card-sub {
+  transform: skewX(var(--skew));
+  transform-origin: left bottom;
+}
+.card-up {
+  display: inline-block;
+  transform: skewX(var(--unskew));
+}
+
+.card-ghost {
+  font-family: var(--font-display);
+  font-size: var(--size-ghost);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--accent);
+  opacity: 0.28;
+  transform: skewX(var(--skew));
+  position: absolute;
+  right: -20px;                    /* dentro da placa primária do shader */
+  bottom: -28px;
+  z-index: 0;
+}
+
+.card-kicker {
+  height: var(--h-strip);
+  padding: 0 26px 0 20px;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+.card-kicker span {
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-accent);
+  white-space: nowrap;
+}
+
+/* O título fica direto sobre o fundo. A caixa corta o texto, para
+ * ele entrar "de dentro" dela. */
+.card-title {
+  position: absolute;
+  left: 0;
+  top: 56px;
+  height: 112px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.card-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--size-hero);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.card-sub {
+  height: var(--h-strip);
+  padding: 0 26px;
+  background: var(--primary);
+  position: absolute;
+  left: 10px;
+  top: 192px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.card-sub span {
+  font-size: var(--size-data);
+  font-weight: 600;
+  letter-spacing: var(--track-data);
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.card-underline {
+  width: 420px;
+  height: var(--rule);
+  background: var(--accent);
+  position: absolute;
+  left: 10px;
+  top: 240px;                      /* 8 px abaixo da sub-barra */
+  transform-origin: left center;
+}

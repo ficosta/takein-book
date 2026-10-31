@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Caderno de JavaScript</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, como um gráfico de tela cheia. */
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    .nb { position: absolute; left: 240px; top: 150px; width: 1440px;
+      filter: var(--shadow); }
+
+    /* Cabeçalho: kicker, placa do título com o placar dos testes. */
+    .nb-kicker, .nb-bar { display: flex; align-items: center;
+      transform: skewX(var(--skew)); transform-origin: left bottom; }
+    .nb-up { display: block; transform: skewX(var(--unskew)); }
+    .nb-kicker { width: max-content; height: var(--h-strip); margin-left: 26px;
+      padding: 0 26px 0 20px; background: var(--accent);
+      font: 700 var(--size-label) var(--font-data);
+      letter-spacing: var(--track-label); color: var(--on-accent); }
+    .nb-bar { position: relative; justify-content: space-between; height: var(--h-bar);
+      padding: 0 48px 0 34px;
+      background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); }
+    .nb-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: var(--blade); background: var(--accent); }
+    .nb-title { font: var(--size-display)/1.15 var(--font-display); color: var(--paper); }
+    .nb-score { font: var(--size-display)/1.15 var(--font-display); color: var(--accent);
+      font-variant-numeric: tabular-nums; }
+
+    /* Os testes: duas colunas de faixas de 40 px. */
+    .nb-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px;
+      margin-top: 24px; }
+    .nb-item { display: flex; align-items: center; height: var(--h-strip);
+      padding: 0 20px; overflow: hidden; background: var(--ink);
+      border-left: 6px solid var(--up); }
+    .nb-item span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+      font: 600 var(--size-label) var(--font-data); letter-spacing: var(--track-data);
+      color: var(--paper); }
+    .nb-item.fail { background: var(--ink-2); border-left-color: var(--live); }
+    .nb-item.fail span { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <div class="nb">
+    <div class="nb-kicker"><span class="nb-up">OFICINA DE JAVASCRIPT</span></div>
+    <div class="nb-bar"><span class="nb-up nb-title">CADERNO · TESTES CERTOS</span>
+      <span class="nb-up nb-score"></span></div>
+    <div class="nb-list"></div>
+  </div>
+  <script src="notebook.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>

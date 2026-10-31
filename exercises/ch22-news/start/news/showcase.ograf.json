@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.showcase",
+  "version": "1.0.0",
+  "name": "News · Vitrine da pele",
+  "description": "Mostra as cores e as fontes do tokens.css, para conferir a pele do pacote.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "showcase.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/showcase.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line",
+        "default": "Pacote de news"
+      }
+    }
+  }
+}

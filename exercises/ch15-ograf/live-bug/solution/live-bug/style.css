@@ -1,0 +1,66 @@
+/* O bug: AO VIVO + relógio, no canto superior direito da área de título.
+   Cores, fontes e medidas vêm do tokens.css. */
+.bug {
+  position: absolute;
+  top: var(--safe-y);
+  right: var(--safe-x);
+  height: var(--h-plate);
+  filter: var(--shadow);            /* a sombra fica no container */
+}
+
+/* As duas placas, inclinadas. Ancoradas à direita: a inclinação
+   entra na área segura em vez de sair dela. */
+.bug-plates {
+  display: flex;
+  height: 100%;
+  transform: skewX(var(--skew));
+  transform-origin: right top;
+  /* Fora do ar: recortadas até sumir. Saída rápida, acelerando. */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.25s var(--ease-out);
+}
+.bug.on-air .bug-plates {
+  clip-path: inset(0);
+  /* Entrada: um pouco mais longa, freando. */
+  transition: clip-path 0.4s var(--ease-in);
+}
+
+.bug-live,
+.bug-clock {
+  display: flex;
+  align-items: center;              /* texto centralizado na vertical */
+}
+.bug-live { padding: 0 22px; background: var(--live); }
+.bug-clock { padding: 0 20px; background: var(--ink); }
+
+/* O texto volta a ficar reto dentro da placa inclinada. */
+.bug-up {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: skewX(var(--unskew));
+}
+.bug-label {
+  font: 700 var(--size-data) var(--font-data);
+  letter-spacing: var(--track-label);
+  color: var(--paper);
+}
+.bug-time {
+  font: var(--size-score) var(--font-display);
+  letter-spacing: 0.03em;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+/* O ponto: a única peça redonda do sistema, pulsando. */
+.bug-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--paper);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}

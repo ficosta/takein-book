@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Oficina de CSS · receitas</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="recipes.css">
+</head>
+<body>
+<!-- Cada quadro é uma receita. As de jornalismo usam a pele news
+     (data-skin="news"); as outras, a pele liga. -->
+<main class="notebook">
+  <section class="recipe" id="r01">
+    <h2><b>R01</b>Números que não dançam</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew"><span class="up">sem</span></div>
+        <div class="plate num-plate skew"><span class="up">1.111</span></div><div class="plate num-plate skew"><span class="up">8.888</span></div></div>
+      <div class="stack r01-tabular"><div class="kicker skew"><span class="up">com tabular-nums</span></div>
+        <div class="plate num-plate skew"><span class="up">1.111</span></div><div class="plate num-plate skew"><span class="up">8.888</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r02" data-skin="news">
+    <h2><b>R02</b>Título equilibrado</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew"><span class="up">sem</span></div>
+        <div class="plate tall blade skew" style="height:auto;padding:14px 34px"><span class="up demo-headline">Governo anuncia pacote para conter a alta dos alimentos</span></div></div>
+      <div class="stack"><div class="kicker skew"><span class="up">com balance</span></div>
+        <div class="plate tall blade skew" style="height:auto;padding:14px 34px"><span class="up demo-headline r02-title">Governo anuncia pacote para conter a alta dos alimentos</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r03" data-skin="news">
+    <h2><b>R03</b>No máximo duas linhas</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew"><span class="up">resumo</span></div>
+        <div class="plate blade skew" style="height:auto;padding:14px 34px"><span class="up r03-summary" style="font-weight:500;line-height:1.25">A reunião do conselho terminou sem acordo sobre a nova tarifa, e a votação foi adiada para a próxima semana, segundo a assessoria do órgão.</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r04" data-skin="news">
+    <h2><b>R04</b>Caixa alta com respiro</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew" style="text-transform:none;letter-spacing:0"><span class="up r04-label">Economia</span></div>
+        <div class="plate tall blade skew"><span class="up title">JUROS CAEM PELA SEGUNDA VEZ</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r05">
+    <h2><b>R05</b>Texto que cabe (autofit)</h2>
+    <div class="demo">
+      <div class="stack">
+        <div class="plate tall blade skew"><span class="up r05-box r05-fit">RAFAEL TORRES</span></div>
+        <div class="plate tall blade skew"><span class="up r05-box r05-fit">MARIA APARECIDA DOS SANTOS ALBUQUERQUE</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r06">
+    <h2><b>R06</b>Qualquer peso da fonte variável</h2>
+    <div class="demo" style="font-family:'Inter',sans-serif;font-size:var(--size-display)">
+      <div class="plate tall blade skew" style="gap:36px"><span class="up r06-light">Peso 250</span><span class="up r06-medium">560</span><span class="up r06-heavy">870</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r07">
+    <h2><b>R07</b>Recursos escondidos da fonte</h2>
+    <div class="demo" style="font-size:var(--size-score)">
+      <div class="stack"><div class="kicker skew"><span class="up">sem</span></div>
+        <div class="plate blade skew"><span class="up">PÊNALTIS 3/5</span></div></div>
+      <div class="stack"><div class="kicker skew"><span class="up">com frac</span></div>
+        <div class="plate blade skew"><span class="up r07-features">PÊNALTIS 3/5</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r08">
+    <h2><b>R08</b>Grade de 12 colunas na área segura</h2>
+    <div class="demo"><div class="r08-grid"><div class="r08-wide"></div><div class="r08-narrow"></div><div style="grid-column:span 3"></div><div style="grid-column:span 3"></div><div style="grid-column:span 6"></div></div></div>
+  </section>
+  <section class="recipe" id="r09">
+    <h2><b>R09</b>Centro de verdade</h2>
+    <div class="demo">
+      <div class="r09-center" style="width:420px;height:190px;background:var(--ink);filter:var(--shadow)">
+        <div class="kicker skew" style="transform-origin:center"><span class="up">intervalo</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r10" data-skin="news">
+    <h2><b>R10</b>Empurrar para o canto</h2>
+    <div class="demo">
+      <div class="plate blade skew" style="width:100%;padding-right:0">
+        <div class="r10-row up" style="transform:none">
+          <span class="up title">SÃO PAULO</span><span class="up" style="color:var(--dim);font-size:var(--size-data)">AVENIDA PAULISTA</span>
+          <span class="r10-corner kicker live" style="height:var(--h-plate);padding:0 26px"><span class="up title">19:42</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r11">
+    <h2><b>R11</b>Cartões do mesmo tamanho</h2>
+    <div class="demo">
+      <div class="r11-cards">
+        <div class="stat skew"><span class="up"><small>POSSE</small><br><strong>58%</strong></span></div>
+        <div class="stat skew"><span class="up"><small>CHUTES</small><br><strong>14</strong></span></div>
+        <div class="stat skew"><span class="up"><small>ESCANTEIOS</small><br><strong>6</strong></span></div>
+        <div class="stat skew"><span class="up"><small>FALTAS</small><br><strong>11</strong></span></div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r12" data-skin="news">
+    <h2><b>R12</b>Foto que preenche sem distorcer</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew"><span class="up">sem</span></div><img class="demo-photo squash" src="city.jpg" alt=""></div>
+      <div class="stack"><div class="kicker skew"><span class="up">com object-fit</span></div><img class="demo-photo r12-photo" src="city.jpg" alt=""></div>
+    </div>
+  </section>
+  <section class="recipe" id="r13">
+    <h2><b>R13</b>Vídeo com transparência</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker skew"><span class="up">webm · vp9 · alfa</span></div>
+        <div class="plate blade skew r13-video" style="height:auto;padding:16px 34px"><span class="up mono">&lt;video src="loop.webm"<br>&nbsp;&nbsp;autoplay muted loop playsinline&gt;<br>&lt;/video&gt;</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r14" data-skin="news">
+    <h2><b>R14</b>Pulso sem fim</h2>
+    <div class="demo">
+      <div class="skew" style="display:flex;height:var(--h-plate);filter:var(--shadow)">
+        <div class="kicker live" style="height:100%;font-size:var(--size-data)"><span class="up live-dot-row"><span class="r14-dot"></span>AO VIVO</span></div>
+        <div class="plate" style="filter:none;padding:0 20px"><span class="up title">19:42</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r15" data-skin="news">
+    <h2><b>R15</b>Ticker infinito</h2>
+    <div class="demo bleed">
+      <div style="display:flex;width:100%;height:var(--h-plate);background:var(--ink);filter:var(--shadow)">
+        <div class="kicker" style="height:100%;padding:0 26px;position:relative;z-index:1">mercado</div>
+        <div class="r15-window" style="display:flex;align-items:center;font-size:var(--size-data-l)">
+          <div class="r15-track"><span>DÓLAR R$ 5,42 <b style="color:var(--up)">▲</b></span><span>IBOVESPA 1,3% <b style="color:var(--up)">▲</b></span><span>PETRÓLEO 0,8% <b style="color:var(--down)">▼</b></span><span>EURO R$ 5,91 <b style="color:var(--down)">▼</b></span><span>DÓLAR R$ 5,42 <b style="color:var(--up)">▲</b></span><span>IBOVESPA 1,3% <b style="color:var(--up)">▲</b></span><span>PETRÓLEO 0,8% <b style="color:var(--down)">▼</b></span><span>EURO R$ 5,91 <b style="color:var(--down)">▼</b></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r16" data-skin="news">
+    <h2><b>R16</b>Dois-pontos que piscam</h2>
+    <div class="demo">
+      <div class="plate tall blade skew"><span class="up" style="font:var(--size-display)/1 var(--font-display)">19<span class="r16-colon">:</span>42</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r17">
+    <h2><b>R17</b>Respiração</h2>
+    <div class="demo">
+      <div class="plate tall skew r17-halo" style="background:var(--primary)"><span class="up title" style="font-size:var(--size-display)">GOL DO MERIDIAN</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r18">
+    <h2><b>R18</b>O peso que anima</h2>
+    <div class="demo">
+      <div class="plate tall blade skew" style="width:340px;justify-content:center"><span class="up r18-weight" style="font:var(--size-hero)/1 'Inter',sans-serif">GOL</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r19">
+    <h2><b>R19</b>Letra por letra, só com CSS</h2>
+    <div class="demo">
+      <div class="plate tall blade skew" style="height:130px;overflow:hidden"><span class="up r19-word" style="font:var(--size-hero)/1.1 var(--font-display)"><span style="--i: 0">M</span><span style="--i: 1">E</span><span style="--i: 2">R</span><span style="--i: 3">I</span><span style="--i: 4">D</span><span style="--i: 5">I</span><span style="--i: 6">A</span><span style="--i: 7">N</span></span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r20" data-skin="news">
+    <h2><b>R20</b>Máquina de escrever</h2>
+    <div class="demo">
+      <div class="stack"><div class="kicker live skew"><span class="up">última hora</span></div>
+        <div class="plate blade skew" style="width:540px"><span class="up r20-text">FRENTE FRIA CHEGA A SP</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r21">
+    <h2><b>R21</b>Gradiente que corre no texto</h2>
+    <div class="demo">
+      <div class="plate tall blade skew" style="height:130px"><span class="up r21-shine" style="font:var(--size-hero)/1.1 var(--font-display)">VOLT LIGA</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r22">
+    <h2><b>R22</b>Neon</h2>
+    <div class="demo"><span class="r22-neon" style="font:var(--size-hero)/1 var(--font-display);letter-spacing:.03em">AO VIVO</span></div>
+  </section>
+  <section class="recipe" id="r23" data-skin="news">
+    <h2><b>R23</b>Vidro fosco</h2>
+    <div class="demo r23-backdrop">
+      <div class="r23-glass skew" style="display:flex;align-items:center;gap:24px;height:var(--h-bar);padding:0 34px">
+        <span class="up title" style="font-size:var(--size-display)">SÃO PAULO</span><span class="up title" style="font-size:var(--size-display);color:var(--accent)">24°</span>
+      </div>
+    </div>
+  </section>
+  <section class="recipe" id="r24" data-skin="news">
+    <h2><b>R24</b>O brilho que passa</h2>
+    <div class="demo">
+      <div class="kicker live skew r24-badge" style="height:var(--h-plate);padding:0 40px;font-size:var(--size-data-l);filter:var(--shadow)"><span class="up">URGENTE</span></div>
+    </div>
+  </section>
+  <section class="recipe" id="r25" data-skin="news">
+    <h2><b>R25</b>Borda que gira</h2>
+    <div class="demo">
+      <div class="r25-frame skew"><div class="r25-core" style="display:flex;align-items:center;height:var(--h-bar);padding:0 40px"><span class="up title" style="font-size:var(--size-display)">JOGO DA RODADA</span></div></div>
+    </div>
+  </section>
+  <section class="recipe" id="r26" data-skin="news">
+    <h2><b>R26</b>Texto recheado com imagem</h2>
+    <div class="demo"><span class="r26-fill">SÃO PAULO</span></div>
+  </section>
+  <section class="recipe" id="r27">
+    <h2><b>R27</b>Glitch</h2>
+    <div class="demo"><span class="r27-glitch" data-text="SEM SINAL" style="font:var(--size-hero)/1 var(--font-display);letter-spacing:.03em">SEM SINAL</span></div>
+  </section>
+  <section class="recipe" id="r28">
+    <h2><b>R28</b>Virada 3D</h2>
+    <div class="demo">
+      <div class="r28-stage"><div class="r28-card">
+        <div class="r28-face r28-front"><span class="up" style="font:var(--size-score) var(--font-display)">MER 2 <b style="font-weight:400;color:var(--accent)">:</b> 1 ATL</span></div>
+        <div class="r28-face r28-back"><span class="up" style="font:var(--size-score) var(--font-display)">INTERVALO</span></div>
+      </div></div>
+    </div>
+  </section>
+</main>
+<script src="recipes.js"></script>
+</body>
+</html>

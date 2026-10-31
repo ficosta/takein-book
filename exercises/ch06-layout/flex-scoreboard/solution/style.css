@@ -1,0 +1,68 @@
+/* EXERCÍCIO 6.1 — Placar com flex. Solução. */
+
+body {
+  margin: 0;
+  padding: var(--safe-y) var(--safe-x);
+  font-family: var(--font-data);
+}
+
+.sb {
+  --home: var(--ink);
+  --away: var(--ink-2);
+  display: flex;
+}
+
+/* As cinco caixas de uma vez: a vírgula quer dizer "e também". */
+.sb-league, .sb-team, .sb-score, .sb-clock {
+  height: var(--h-plate);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-league {
+  width: 62px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: var(--size-data-l);
+}
+
+.sb-team {
+  width: 104px;
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 700;
+  letter-spacing: var(--track-data);
+}
+
+/* Quem tem as duas classes ao mesmo tempo. */
+.sb-team.sb-home { background: var(--home); }
+.sb-team.sb-away { background: var(--away); }
+
+.sb-score {
+  width: 112px;
+  gap: 10px;
+  background: var(--primary);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: var(--size-score);
+  font-variant-numeric: tabular-nums;
+}
+
+.sb-colon { color: var(--accent); }
+
+.sb-clock {
+  width: 150px;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sb-period {
+  font-size: var(--size-data);
+  color: var(--accent);
+}

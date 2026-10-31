@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* Tela cheia: a tabela no meio do quadro. */
+    .results {
+      position: absolute; left: 50%; top: 50%; width: 1100px;
+      display: flex; flex-direction: column; gap: 4px;
+      transform: translate(-50%, -50%); filter: var(--shadow);
+    }
+    .counted, .title, .head, .row, .error {
+      position: relative; z-index: 0; margin: 0;
+      display: flex; align-items: center; padding: 0 34px 0 44px;
+    }
+    /* A placa inclinada é desenhada no ::before, atrás do texto.
+     * Assim o texto fica reto e o JavaScript escreve direto nele. */
+    .counted::before, .title::before, .head::before, .row::before, .error::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: var(--ink); transform: skewX(var(--skew));
+    }
+    .counted {
+      align-self: flex-start; height: var(--h-strip); padding: 0 26px;
+      color: var(--on-accent); font: 700 var(--size-label) var(--font-data);
+      letter-spacing: var(--track-label); text-transform: uppercase;
+    }
+    .counted::before { background: var(--accent); }
+    .title {
+      height: var(--h-bar); color: var(--paper);
+      font: var(--size-display) var(--font-display); text-transform: uppercase;
+    }
+    .title::before { border-left: var(--blade) solid var(--accent); }
+
+    /* As linhas: nome, porcentagem e votos em colunas fixas. */
+    .list { display: flex; flex-direction: column; gap: 4px; }
+    .head, .row {
+      display: grid; grid-template-columns: 1fr 200px 260px;
+      font-variant-numeric: tabular-nums;
+    }
+    .head {
+      height: var(--h-strip); color: var(--paper);
+      font: 700 var(--size-label) var(--font-data); letter-spacing: var(--track-label);
+    }
+    .head::before { background: var(--primary); }
+    .row {
+      height: var(--h-plate); color: var(--paper);
+      font: 700 var(--size-data-l) var(--font-data);
+      letter-spacing: var(--track-data); text-transform: uppercase;
+    }
+    .row:nth-child(even)::before { background: var(--ink-2); }
+    .head span + span, .pct, .votes { text-align: right; }
+    .pct { font: var(--size-score) var(--font-display); color: var(--accent); }
+    .votes { color: var(--dim); }
+    .error {
+      height: var(--h-plate); color: var(--paper);
+      font: 700 var(--size-data) var(--font-data); letter-spacing: var(--track-data);
+    }
+    .error::before { background: var(--live); }
+  </style>
+</head>
+<body>
+  <div class="results">
+    <p class="counted"></p>
+    <p class="title"></p>
+    <div class="head"><span>CANDIDATO</span><span>%</span><span>VOTOS</span></div>
+    <div class="list"></div>
+  </div>
+  <!-- Abra pelo Live Server: fetch não funciona com file:// -->
+  <script src="script.js"></script>
+</body>
+</html>

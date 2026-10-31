@@ -1,0 +1,52 @@
+/* Previsão do tempo: três dias, tela cheia, 1440 px no centro. */
+.wx {
+  position: absolute; left: 240px; top: 320px; width: 1440px;
+  filter: var(--shadow); visibility: hidden;
+}
+
+/* Cabeçalho: kicker, placa da cidade e a temperatura de agora. */
+.wx-kicker, .wx-bar { display: flex; align-items: center;
+  transform: skewX(var(--skew)); transform-origin: left bottom; }
+.wx-up { display: block; transform: skewX(var(--unskew)); }
+.wx-kicker { width: max-content; height: var(--h-strip); margin-left: 26px;
+  padding: 0 26px 0 20px; background: var(--accent); }
+.wx-kicker .wx-up { font: 700 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--on-accent);
+  text-transform: uppercase; }
+.wx-bar { position: relative; justify-content: space-between; height: var(--h-bar);
+  padding: 0 48px 0 34px; overflow: hidden;
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); }
+.wx-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--blade); background: var(--accent); }
+.wx-city { display: block; font: var(--size-display)/1.15 var(--font-display);
+  letter-spacing: .015em; color: var(--paper); text-transform: uppercase;
+  white-space: nowrap; }
+.wx-now { display: block; font: var(--size-score) var(--font-display);
+  color: var(--accent); text-transform: uppercase;
+  font-variant-numeric: tabular-nums; }
+
+/* Os três dias: uma placa por dia, com a faixa do nome em cima. */
+.wx-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 16px; }
+.wx-day { background: var(--ink); }
+.wx-name { display: flex; align-items: center; height: var(--h-strip);
+  padding: 0 26px; background: var(--primary);
+  font: 700 var(--size-label) var(--font-data); letter-spacing: var(--track-label);
+  color: var(--paper); text-transform: uppercase; }
+.wx-body { display: flex; align-items: center; gap: 28px; padding: 40px 30px; }
+.wx-icon { width: 120px; height: 120px; flex: none; color: var(--accent); }
+.wx-icon svg { width: 100%; height: 100%; }
+.wx-icon .cloud { fill: var(--paper); }
+.wx-icon .mist { stroke: var(--paper); }
+.wx-desc { font: 600 var(--size-data-l) var(--font-data); color: var(--dim);
+  text-transform: uppercase; letter-spacing: var(--track-data); }
+.wx-temps { font: var(--size-display)/1.1 var(--font-display); color: var(--paper);
+  font-variant-numeric: tabular-nums; }
+.wx-min { margin-left: 16px; font-size: var(--size-score); color: var(--dim); }
+
+/* A licença dos dados (CC BY 4.0) pede o crédito da fonte. */
+.wx-source { display: flex; align-items: center; width: max-content;
+  height: var(--h-strip); margin: 8px 0 0 auto; padding: 0 26px;
+  background: var(--ink);
+  font: 600 var(--size-label) var(--font-data); letter-spacing: var(--track-data);
+  color: var(--faint); text-transform: uppercase; }

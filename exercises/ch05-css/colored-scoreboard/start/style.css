@@ -1,0 +1,53 @@
+/* EXERCÍCIO 5.1 — Placar colorido.
+ * Só cores, fontes e caixas. O layout é o capítulo 6.
+ *
+ * Cores, fontes e medidas vêm do tokens.css, o arquivo da
+ * emissora. Abra e dê uma olhada: são só variáveis. Aqui você
+ * usa os nomes com var(--...), nunca uma cor ou um tamanho solto. */
+
+/* Pronto: o quadro começa na área de título, 54px do topo e
+ * 96px da esquerda. Sem fundo: no ar, atrás está o vídeo. */
+body {
+  margin: 0;
+  padding: var(--safe-y) var(--safe-x);
+  font-family: var(--font-data);
+}
+
+/* Pronto, de modelo: a caixa da liga. */
+.sb-league {
+  width: 62px;
+  height: var(--h-plate);
+  line-height: var(--h-plate);   /* uma linha da altura da caixa: o texto fica no meio */
+  text-align: center;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: var(--size-data-l);
+}
+
+/* TODO 1 — Crie duas variáveis no .sb com a cor de cada time:
+ *   --home: var(--ink);   --away: var(--ink-2); */
+.sb {
+
+}
+
+/* TODO 2 — Siglas (.sb-team): largura 104px, a mesma altura,
+ *          line-height e text-align da liga, cor var(--paper),
+ *          font-size var(--size-data-l), font-weight 700 e
+ *          letter-spacing var(--track-data). */
+
+/* TODO 3 — A sigla da casa com fundo var(--home) e a de fora
+ *          com fundo var(--away).
+ *          Dica: .sb-team.sb-home pega quem tem AS DUAS classes. */
+
+/* TODO 4 — Placar (.sb-score): largura 112px, altura e
+ *          centro como a liga, fundo var(--primary), cor
+ *          var(--paper), fonte var(--font-display) em
+ *          var(--size-score) e font-variant-numeric: tabular-nums.
+ *          Os dois-pontos (.sb-colon) na cor var(--accent). */
+
+/* TODO 5 — Relógio (.sb-clock): largura 150px, altura e centro
+ *          como a liga, fundo var(--ink), cor var(--paper),
+ *          font-size var(--size-data-l), font-weight 600 e
+ *          tabular-nums. O tempo de jogo (.sb-period) menor,
+ *          var(--size-data), na cor var(--accent). */

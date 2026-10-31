@@ -1,0 +1,37 @@
+/* Placar (scorebug): linha de cima, à esquerda. Pele liga.
+   Mesma geometria do placar de referência: tudo com 62 px. */
+
+.sb {
+  position: absolute; left: var(--safe-x); top: var(--safe-y);
+  filter: var(--shadow);
+  visibility: hidden;
+}
+
+/* A fileira de placas inclina junto; o texto volta a ficar reto. */
+.sb-row {
+  display: flex; height: var(--h-plate);
+  transform: skewX(var(--skew)); transform-origin: left bottom;
+}
+.sb-row > div {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; overflow: hidden;
+}
+.sb-up { display: inline-block; transform: skewX(var(--unskew)); }
+
+.sb-league {
+  width: 62px; background: var(--accent);
+  font: var(--size-data-l) var(--font-display); color: var(--on-accent);
+}
+.sb-team {
+  width: 104px; background: var(--ink);
+  font: 700 var(--size-data-l) var(--font-data);
+  letter-spacing: var(--track-data); color: var(--paper);
+}
+.sb-score {
+  width: 112px; background: var(--primary);
+  font: var(--size-score) var(--font-display); color: var(--paper);
+}
+.sb-score .sb-up { display: flex; gap: 10px; align-items: center; }
+.sb-goals { display: inline-block; min-width: 0.6em; text-align: center;
+  font-variant-numeric: tabular-nums; }
+.sb-colon { color: var(--accent); }

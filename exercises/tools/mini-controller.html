@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini-controller OGraf</title>
+  <link rel="icon" href="data:,">
+  <!--
+    Mini-controller OGraf: um controlador de bolso para testar gráficos.
+
+    Uso (com um servidor local rodando na pasta exercises/):
+      tools/mini-controller.html?manifest=../lower-third/ch16-ograf/solution/lower-third/lower-third.ograf.json
+
+    Ele lê o manifest, monta o formulário a partir do schema, importa o
+    Web Component (campo "main") e chama load / playAction / updateAction /
+    stopAction / dispose como um renderizador de verdade faria.
+
+    Parâmetros extras:
+      &auto=1                  carrega e põe no ar sem animação (bom para screenshots)
+      &capture=1               mostra só o quadro 1920×1080, sem painel
+      &background=studio       fundo do quadro: studio | pitch | checker | black | green
+      &safe=1                  liga a moldura da área de título
+      &render=non-realtime     chama load com renderType 'non-realtime' e mostra
+                               a régua de tempo (setActionsSchedule + goToTime);
+                               com &auto=1, para no instante &time=<ms> (padrão 2000)
+
+    Quando termina o &auto=1, marca <body data-ready="1">.
+
+    Os nomes antigos (manifesto, captura, fundo, data-pronto) continuam
+    aceitos, para não quebrar links e scripts de captura antigos.
+  -->
+  <style>
+    :root {
+      --page: #f8fafc; --panel: #ffffff; --border: #e2e8f0;
+      --text: #0f172a; --muted: #64748b; --blue: #2563eb;
+      --log-bg: #0f172a; --log-text: #cbd5e1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font: 14px/1.5 Inter, system-ui, sans-serif;
+      background: var(--page); color: var(--text);
+      display: grid; grid-template-columns: 1fr 340px; gap: 16px;
+      padding: 16px; min-height: 100vh;
+    }
+    h1 { font-size: 15px; margin: 0 0 4px; }
+    .sub { color: var(--muted); font-size: 12px; margin: 0 0 16px; word-break: break-all; }
+
+    /* O quadro de vídeo: sempre 1920×1080, escalado para caber na tela. */
+    .frame-box { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+      border-radius: 8px; box-shadow: 0 1px 3px rgb(0 0 0 / .1); }
+    .frame { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+      transform-origin: 0 0; overflow: hidden; }
+    /* Fundos de teste. "studio" é neutro e escuro, para qualquer gráfico ler bem.
+       "pitch" é o gramado, para os gráficos de esporte. */
+    .frame.studio  { background: radial-gradient(1200px 800px at 65% 35%, #5b6b80, #2b3442 60%, #161b24); }
+    .frame.pitch   { background: repeating-linear-gradient(90deg, rgb(255 255 255 / .03) 0 120px, transparent 120px 240px),
+      radial-gradient(1500px 1000px at 50% 30%, #3f7d3a, #1f4d24 70%, #143318); }
+    .frame.checker { background: repeating-conic-gradient(#cbd5e1 0 25%, #f1f5f9 0 50%) 0 0 / 40px 40px; }
+    .frame.black   { background: #000; }
+    .frame.green   { background: #00b140; }
+    .safe-area { position: absolute; inset: 54px 96px; border: 2px dashed rgb(255 255 255 / .35);
+      pointer-events: none; display: none; z-index: 10; }
+    .frame.show-safe .safe-area { display: block; }
+
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; align-self: start; }
+    fieldset { border: 0; padding: 0; margin: 0 0 16px; }
+    legend { font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+      color: var(--muted); margin-bottom: 8px; }
+    label { display: block; font-size: 13px; margin-bottom: 10px; }
+    input[type=text], input[type=number], textarea, select {
+      width: 100%; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font: inherit; }
+    textarea.json { font: 11px/1.4 'JetBrains Mono', Menlo, monospace; }
+    input[type=color] { width: 100%; height: 34px; border: 1px solid var(--border); border-radius: 6px; }
+    input[type=range] { width: 100%; }
+    .buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    button { padding: 8px; border: 1px solid var(--border); border-radius: 999px; background: #fff;
+      font: 600 13px Inter, system-ui, sans-serif; cursor: pointer; }
+    button:hover { border-color: var(--blue); color: var(--blue); }
+    button.play { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .options label { display: flex; gap: 6px; align-items: center; margin: 6px 0; }
+    .options label.block { display: block; }
+    .hint { font-size: 12px; color: var(--muted); margin: 4px 0 8px; }
+    .log { grid-column: 1 / -1; background: var(--log-bg); color: var(--log-text); border-radius: 8px;
+      font: 12px/1.6 'JetBrains Mono', Menlo, monospace; padding: 12px; height: 180px; overflow: auto;
+      white-space: pre-wrap; margin: 0; }
+    .log .error { color: #fca5a5; }
+
+    body.capture { display: block; padding: 0; }
+    body.capture .panel, body.capture .log, body.capture .header { display: none; }
+    body.capture .frame-box { border-radius: 0; box-shadow: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="header">
+      <h1 id="title">Mini-controller OGraf</h1>
+      <p class="sub" id="path"></p>
+    </div>
+    <div class="frame-box">
+      <div class="frame studio" id="frame"><div class="safe-area"></div></div>
+    </div>
+  </main>
+
+  <aside class="panel">
+    <fieldset>
+      <legend>Dados (do schema)</legend>
+      <form id="fields"></form>
+    </fieldset>
+    <fieldset>
+      <legend>Ações</legend>
+      <div class="buttons">
+        <button id="b-load">Load</button>
+        <button id="b-play" class="play">Play ▶</button>
+        <button id="b-update">Update</button>
+        <button id="b-stop">Stop ■</button>
+        <button id="b-dispose">Dispose</button>
+        <button id="b-reset">Recarregar</button>
+      </div>
+    </fieldset>
+    <fieldset id="custom-actions" hidden>
+      <legend>Ações extras (customActions)</legend>
+      <div class="buttons" id="custom-list"></div>
+    </fieldset>
+    <fieldset id="timeline" class="options" hidden>
+      <legend>Tempo (non-realtime)</legend>
+      <p class="hint">O load mandou renderType 'non-realtime'. O roteiro abaixo vai
+        para setActionsSchedule; a régua chama goToTime.</p>
+      <label class="block">Play em (ms) <input type="number" id="t-play" value="0" step="100"></label>
+      <label class="block">Stop em (ms) <input type="number" id="t-stop" value="4000" step="100"></label>
+      <button id="b-schedule">Enviar roteiro</button>
+      <label class="block">Tempo: <b id="t-label">0 ms</b>
+        <input type="range" id="t-scrub" min="0" max="6000" step="20" value="0">
+      </label>
+    </fieldset>
+    <fieldset class="options">
+      <legend>Opções</legend>
+      <label><input type="checkbox" id="o-skip"> skipAnimation</label>
+      <label><input type="checkbox" id="o-safe"> mostrar área de título</label>
+      <label class="block">Fundo
+        <select id="o-background">
+          <option value="studio">Estúdio</option>
+          <option value="pitch">Gramado</option>
+          <option value="checker">Xadrez (transparência)</option>
+          <option value="black">Preto</option>
+          <option value="green">Verde</option>
+        </select>
+      </label>
+    </fieldset>
+  </aside>
+
+  <pre class="log" id="log"></pre>
+
+  <script type="module">
+    const TAG = 'ograf-graphic';
+    const params = new URLSearchParams(location.search);
+    // Lê um parâmetro aceitando também o nome antigo, em português.
+    const param = (name, oldName) => params.get(name) ?? params.get(oldName);
+    const hasParam = (name, oldName) => params.has(name) || params.has(oldName);
+
+    // Nomes antigos dos fundos, para os links antigos continuarem valendo.
+    const OLD_BACKGROUNDS = { estudio: 'studio', xadrez: 'checker', verde: 'green', preto: 'black', gramado: 'pitch' };
+
+    const manifestUrl = param('manifest', 'manifesto');
+    const renderType = params.get('render') === 'non-realtime' ? 'non-realtime' : 'realtime';
+    const $ = (id) => document.getElementById(id);
+    const frame = $('frame');
+    let graphic = null;
+    let manifest = null;
+
+    if (hasParam('capture', 'captura')) document.body.classList.add('capture');
+
+    // ── Log: cada chamada e o que o gráfico respondeu ────────────────────
+    function log(text, isError = false) {
+      const line = document.createElement('div');
+      if (isError) line.className = 'error';
+      line.textContent = `${new Date().toLocaleTimeString('pt-BR')}  ${text}`;
+      $('log').append(line);
+      $('log').scrollTop = $('log').scrollHeight;
+    }
+
+    // ── Escala o quadro 1920×1080 para caber na tela ─────────────────────
+    function fitFrame() {
+      const width = frame.parentElement.clientWidth;
+      frame.style.transform = `scale(${width / 1920})`;
+    }
+    new ResizeObserver(fitFrame).observe(frame.parentElement);
+
+    // ── Monta o formulário a partir do schema do manifest ────────────────
+    function createInput(prop) {
+      if (prop.enum) {
+        const select = document.createElement('select');
+        const labels = prop.gddOptions?.labels ?? {};
+        for (const value of prop.enum) select.append(new Option(labels[value] ?? value, value));
+        return select;
+      }
+      if (prop.type === 'array' || prop.type === 'object') {
+        // Tabelas e grupos: aqui, como JSON editável. O edge.playout
+        // desenha uma tabela de verdade.
+        const area = document.createElement('textarea');
+        area.rows = 8;
+        area.classList.add('json');
+        return area;
+      }
+      if (prop.gddType === 'multi-line') {
+        const area = document.createElement('textarea');
+        area.rows = 3;
+        return area;
+      }
+      const input = document.createElement('input');
+      input.type = prop.type === 'boolean' ? 'checkbox'
+        : prop.gddType?.startsWith('color') ? 'color'
+        : (prop.type === 'number' || prop.type === 'integer') ? 'number' : 'text';
+      return input;
+    }
+
+    function buildFields(schema) {
+      const form = $('fields');
+      form.innerHTML = '';
+      for (const [key, prop] of Object.entries(schema?.properties ?? {})) {
+        const label = document.createElement('label');
+        label.textContent = prop.title ?? key;
+        const input = createInput(prop);
+        input.name = key;
+        input.dataset.type = prop.type;
+        if (prop.default !== undefined) {
+          if (input.type === 'checkbox') input.checked = prop.default;
+          else if (input.classList.contains('json')) input.value = JSON.stringify(prop.default, null, 1);
+          else input.value = prop.default;
+        }
+        label.append(input);
+        form.append(label);
+      }
+    }
+
+    // ── Um botão por ação extra declarada no manifest ─────────────────────
+    function buildCustomActions(actions) {
+      if (!Array.isArray(actions) || actions.length === 0) return;
+      $('custom-actions').hidden = false;
+      for (const action of actions) {
+        const button = document.createElement('button');
+        button.textContent = action.name ?? action.id;
+        button.title = action.description ?? '';
+        button.onclick = () => call('customAction', { id: action.id, payload: {}, skipAnimation: skip() });
+        $('custom-list').append(button);
+      }
+    }
+
+    function readData() {
+      const data = {};
+      for (const input of $('fields').elements) {
+        if (!input.name) continue;
+        if (input.type === 'checkbox') data[input.name] = input.checked;
+        else if (input.dataset.type === 'number' || input.dataset.type === 'integer') data[input.name] = Number(input.value);
+        else if (input.classList.contains('json')) {
+          try { data[input.name] = JSON.parse(input.value); }
+          catch { log(`O campo ${input.name} não é um JSON válido: ficou de fora.`, true); }
+        }
+        else data[input.name] = input.value;
+      }
+      return data;
+    }
+
+    // ── Chama um método do gráfico, mede o tempo e mostra a resposta ─────
+    async function call(method, args = {}, quiet = false) {
+      if (!graphic) return log('Nenhum gráfico carregado.', true);
+      if (typeof graphic[method] !== 'function') return log(`O gráfico não tem o método ${method}().`, true);
+      const start = performance.now();
+      if (!quiet) log(`→ ${method}(${JSON.stringify(args)})`);
+      try {
+        const response = await graphic[method](args);
+        const ms = Math.round(performance.now() - start);
+        if (!quiet) log(`← ${method} respondeu em ${ms} ms: ${JSON.stringify(response)}`);
+        if (response?.statusCode === undefined && method !== 'goToTime' && method !== 'setActionsSchedule') {
+          log(`⚠ ${method} não devolveu statusCode. Faltou o return?`, true);
+        }
+        return response;
+      } catch (error) {
+        log(`✗ ${method} deu erro: ${error.message}`, true);
+        console.error(error);
+      }
+    }
+
+    const skip = () => $('o-skip').checked;
+
+    async function loadGraphic() {
+      graphic?.remove();
+      graphic = document.createElement(TAG);
+      frame.append(graphic);
+      return call('load', {
+        data: readData(),
+        renderType,
+        renderCharacteristics: { resolution: { width: 1920, height: 1080 }, frameRate: 50 },
+      });
+    }
+
+    // ── Modo non-realtime: roteiro de ações + régua de tempo ─────────────
+    function sendSchedule() {
+      const schedule = [
+        { timestamp: Number($('t-play').value), action: { type: 'playAction', params: { skipAnimation: false } } },
+        { timestamp: Number($('t-stop').value), action: { type: 'stopAction', params: { skipAnimation: false } } },
+      ];
+      $('t-scrub').max = Math.max(6000, Number($('t-stop').value) + 2000);
+      return call('setActionsSchedule', { schedule });
+    }
+    $('b-schedule').onclick = sendSchedule;
+    $('t-scrub').oninput = (e) => {
+      $('t-label').textContent = `${e.target.value} ms`;
+      call('goToTime', { timestamp: Number(e.target.value) }, true);
+    };
+
+    $('b-load').onclick = loadGraphic;
+    $('b-play').onclick = () => call('playAction', { skipAnimation: skip() });
+    $('b-update').onclick = () => call('updateAction', { data: readData(), skipAnimation: skip() });
+    $('b-stop').onclick = () => call('stopAction', { skipAnimation: skip() });
+    $('b-dispose').onclick = async () => { await call('dispose'); graphic?.remove(); graphic = null; };
+    $('b-reset').onclick = () => location.reload();
+
+    function applyFrameClasses() {
+      frame.className = `frame ${$('o-background').value}`;
+      frame.classList.toggle('show-safe', $('o-safe').checked);
+    }
+    $('o-safe').onchange = applyFrameClasses;
+    $('o-background').onchange = applyFrameClasses;
+    const background = param('background', 'fundo');
+    if (background) $('o-background').value = OLD_BACKGROUNDS[background] ?? background;
+    if (params.has('safe')) $('o-safe').checked = true;
+    applyFrameClasses();
+
+    function markReady() {
+      document.body.dataset.ready = '1';
+      document.body.dataset.pronto = '1';   // nome antigo, para scripts antigos
+    }
+
+    // ── Início: lê o manifest e importa o Web Component ──────────────────
+    async function init() {
+      if (!manifestUrl) {
+        log('Passe o manifest na URL: mini-controller.html?manifest=caminho/para/grafico.ograf.json', true);
+        return;
+      }
+      const url = new URL(manifestUrl, location.href);
+      $('path').textContent = url.pathname;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status} ao buscar o manifest`);
+        manifest = await response.json();
+      } catch (error) {
+        return log(`Não consegui ler o manifest: ${error.message}`, true);
+      }
+      $('title').textContent = manifest.name ?? 'Gráfico sem nome';
+      buildCustomActions(manifest.customActions);
+      log(`Manifest lido: ${manifest.id} v${manifest.version ?? '?'} · stepCount ${manifest.stepCount ?? 1}`);
+      buildFields(manifest.schema);
+
+      if (renderType === 'non-realtime') {
+        $('timeline').hidden = false;
+        if (!manifest.supportsNonRealTime) log('⚠ O manifest não declara supportsNonRealTime: true.', true);
+      }
+
+      try {
+        const module = await import(new URL(manifest.main, url).href);
+        customElements.define(TAG, module.default);
+        log(`Web Component importado de ${manifest.main}.`);
+      } catch (error) {
+        return log(`Não consegui importar ${manifest.main}: ${error.message}`, true);
+      }
+
+      if (params.has('auto')) {
+        await loadGraphic();
+        if (renderType === 'non-realtime') {
+          await sendSchedule();
+          await call('goToTime', { timestamp: Number(params.get('time') ?? 2000) });
+        } else {
+          await call('playAction', { skipAnimation: true });
+        }
+        markReady();
+      }
+    }
+    init();
+  </script>
+</body>
+</html>

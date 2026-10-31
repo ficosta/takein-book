@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.info-card",
+  "version": "1.0.0",
+  "name": "Cartela de campos",
+  "description": "Mostra na tela o valor de cada tipo de campo do schema.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnail.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line",
+        "default": "Próxima rodada"
+      },
+      "text": {
+        "type": "string",
+        "title": "Texto",
+        "gddType": "multi-line",
+        "default": "CD Meridian × Atlético Oro\nDomingo, 16h · Volt Liga"
+      },
+      "theme": {
+        "type": "string",
+        "title": "Tema",
+        "gddType": "select",
+        "enum": [
+          "liga",
+          "news"
+        ],
+        "gddOptions": {
+          "labels": {
+            "liga": "Liga",
+            "news": "News"
+          }
+        },
+        "default": "liga"
+      },
+      "showLiveBadge": {
+        "type": "boolean",
+        "title": "Mostrar selo AO VIVO",
+        "default": true
+      },
+      "order": {
+        "type": "integer",
+        "title": "Ordem no bloco",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 3
+      },
+      "color": {
+        "type": "string",
+        "title": "Cor de destaque",
+        "gddType": "color-rrggbb",
+        "pattern": "^#[0-9a-f]{6}$",
+        "default": "#c8f71d"
+      }
+    }
+  }
+}

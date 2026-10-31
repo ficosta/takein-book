@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ícone ao vivo</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* O bug: canto de cima, à direita da área de título. */
+    .bug {
+      position: absolute; right: var(--safe-x); top: var(--safe-y);
+      height: var(--h-plate); display: flex; align-items: center; gap: 14px;
+      padding: 0 26px 0 20px; background: var(--ink);
+      border-left: var(--blade) solid var(--accent);
+      transform: skewX(var(--skew)); transform-origin: right top;
+      filter: var(--shadow);
+    }
+    /* O ícone e o texto voltam a ficar retos dentro da placa. */
+    .icon, .bug-label { transform: skewX(var(--unskew)); }
+    .bug-label {
+      font: 700 var(--size-data) var(--font-data);
+      letter-spacing: var(--track-label); color: var(--paper);
+    }
+
+    /* TODO 3 — Troque a cor do ícone inteiro mudando só
+     *          esta linha. Experimente var(--live) e var(--accent). */
+    .icon { width: 50px; color: var(--paper); }
+  </style>
+</head>
+<body>
+
+  <div class="bug">
+    <!-- O quadro de desenho vai de (0,0) a (100,100). -->
+    <svg class="icon" viewBox="0 0 100 100">
+
+      <!-- O ponto central: já está pronto. -->
+      <circle cx="50" cy="50" r="10" fill="currentColor"/>
+
+      <!-- TODO 1 — As ondas da esquerda. Acrescente ao path:
+             fill="none"  stroke="currentColor"
+             stroke-width="6"  stroke-linecap="round"        -->
+      <path d="M 34 34 A 22 22 0 0 0 34 66
+               M 22 22 A 38 38 0 0 0 22 78"/>
+
+      <!-- TODO 2 — As ondas da direita: copie o path de cima e
+           espelhe. Só o x de cada ponto muda: 34 vira 66 e 22
+           vira 78. O raio e o y ficam iguais, e o último 0 antes
+           das coordenadas (a "varredura") vira 1. -->
+
+    </svg>
+    <span class="bug-label">AO VIVO</span>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+/* EXERCÍCIO 5.1 — solução. */
+
+body {
+  margin: 0;
+  padding: var(--safe-y) var(--safe-x);
+  font-family: var(--font-data);
+}
+
+.sb-league {
+  width: 62px;
+  height: var(--h-plate);
+  line-height: var(--h-plate);
+  text-align: center;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-display);
+  font-size: var(--size-data-l);
+}
+
+.sb {
+  --home: var(--ink);
+  --away: var(--ink-2);
+}
+
+.sb-team {
+  width: 104px;
+  height: var(--h-plate);
+  line-height: var(--h-plate);
+  text-align: center;
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 700;
+  letter-spacing: var(--track-data);
+}
+
+/* Quem tem as duas classes ao mesmo tempo. */
+.sb-team.sb-home { background: var(--home); }
+.sb-team.sb-away { background: var(--away); }
+
+.sb-score {
+  width: 112px;
+  height: var(--h-plate);
+  line-height: var(--h-plate);
+  text-align: center;
+  background: var(--primary);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: var(--size-score);
+  font-variant-numeric: tabular-nums;
+}
+
+.sb-colon { color: var(--accent); }
+
+.sb-clock {
+  width: 150px;
+  height: var(--h-plate);
+  line-height: var(--h-plate);
+  text-align: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sb-period {
+  font-size: var(--size-data);
+  color: var(--accent);
+}

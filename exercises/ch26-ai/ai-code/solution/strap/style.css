@@ -1,0 +1,39 @@
+/* Erro 5 corrigido: nada de @import da internet. As fontes vêm da
+ * pasta fonts/ do pacote, declaradas no tokens.css, que o
+ * graphic.mjs carrega antes deste arquivo. De quebra, as cores e
+ * medidas passam a vir dos tokens, e não de valores soltos. */
+
+/* Linha de baixo, à esquerda: a mesma âncora da lower third.
+ * Começa escondida; o autoAlpha do GSAP cuida de mostrar. */
+.strap { position: absolute; left: var(--safe-x); bottom: var(--bottom-y);
+  width: calc(1920px - 2 * var(--safe-x)); height: 132px;
+  filter: var(--shadow); visibility: hidden; }
+
+/* O selo URGENTE: a faixa de cima, na cor de significado --live. */
+.strap-kicker { position: absolute; left: 26px; bottom: var(--h-bar);
+  height: var(--h-strip); display: flex; align-items: center;
+  padding: 0 26px 0 20px; background: var(--live);
+  transform: skewX(var(--skew)); transform-origin: left bottom; }
+.strap-kicker span { display: block; transform: skewX(var(--unskew));
+  font: 700 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--paper); }
+
+/* A placa da manchete, com a lâmina --live na borda esquerda. */
+.strap-bar { position: absolute; left: 0; bottom: 0; height: var(--h-bar);
+  box-sizing: border-box; max-width: calc(100% - 40px);
+  display: flex; align-items: center;
+  padding: 0 48px 0 34px; overflow: hidden;
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%);
+  transform: skewX(var(--skew)); transform-origin: left bottom; }
+.strap-bar::before { content: ""; position: absolute; left: 0; top: 0;
+  bottom: 0; width: var(--blade); background: var(--live); }
+
+/* Manchete longa demais termina em reticências, sem sair do quadro. */
+.strap-headline { min-width: 0; margin: 0; transform: skewX(var(--unskew));
+  font: var(--size-display)/1.15 var(--font-display); letter-spacing: 0.015em;
+  text-transform: uppercase; color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.strap-underline { position: absolute; left: 10px; bottom: -12px;
+  width: 420px; height: var(--rule); background: var(--live);
+  transform: skewX(var(--skew)); transform-origin: left center; }

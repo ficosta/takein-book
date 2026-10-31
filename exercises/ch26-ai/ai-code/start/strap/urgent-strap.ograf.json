@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.urgent-strap",
+  "version": "1.0.0",
+  "name": "Tarja de urgente",
+  "description": "Tarja de urgente na linha de baixo, com a manchete.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "headline": {
+        "type": "string",
+        "title": "Manchete",
+        "gddType": "single-line",
+        "default": "Temporal deixa 40 mil casas sem luz em São Paulo"
+      }
+    }
+  }
+}

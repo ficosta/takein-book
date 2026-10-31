@@ -1,0 +1,70 @@
+/* CAPÍTULO 13 — Transição. Solução. */
+
+body { margin: 0; font-family: var(--font-data); }
+
+/* O quadro: 1920 × 1080, fundo transparente. O que sai dele
+ * pela esquerda não aparece. */
+.stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+/* Os botões ficam embaixo do quadro, fora do ar. */
+.controls { display: flex; gap: 8px; padding: 16px var(--safe-x); }
+button { font: 600 var(--size-label) var(--font-data); padding: 6px 16px; }
+
+/* As duas placas da tarja. A forma inclinada é desenhada no
+ * ::before, atrás do texto. Assim o texto fica reto. */
+.strap-label, .strap-text {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  height: var(--h-bar);
+  padding: 0 34px;
+}
+.strap-label::before, .strap-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: skewX(var(--skew));
+  transform-origin: left bottom;
+}
+.strap-label {
+  color: var(--paper);
+  font: 700 var(--size-data-l) var(--font-data);
+  letter-spacing: var(--track-label);
+}
+.strap-label::before { background: var(--live); }
+.strap-text {
+  padding-right: 60px;
+  color: var(--paper);
+  font: var(--size-display) var(--font-display);
+  text-transform: uppercase;
+}
+.strap-text::before { background: var(--ink); }
+
+/* O estado FORA DO AR: empurrada para a esquerda e invisível.
+ * Ancorada no canto de baixo, à esquerda da área de título. */
+.strap {
+  position: absolute;
+  left: var(--safe-x);
+  bottom: var(--bottom-y);
+  display: flex;
+  filter: var(--shadow);
+  transform: translateX(-110%);
+  opacity: 0;
+  /* Saída: vale quando a tarja volta para este estado. */
+  transition: transform 0.35s ease-in, opacity 0.35s;
+}
+
+.strap.on-air {
+  transform: translateX(0);
+  opacity: 1;
+  /* Entrada: vale quando a tarja chega a este estado. */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s;
+}

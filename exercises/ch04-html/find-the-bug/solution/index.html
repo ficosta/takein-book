@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Ache o erro</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    body      { margin: 0; width: 1920px; height: 1080px; font-family: var(--font-data); }
+    .lt       { position: absolute; left: var(--safe-x); bottom: var(--bottom-y); }
+    .lt-name  { display: flex; align-items: center; height: var(--h-bar); padding: 0 34px;
+                background: var(--ink); color: var(--paper);
+                font: var(--size-display) var(--font-display); letter-spacing: 0.015em; }
+    .lt-role  { display: flex; align-items: center; height: var(--h-strip); padding: 0 26px;
+                background: var(--accent); color: var(--on-accent);
+                font-size: var(--size-label); font-weight: 700; letter-spacing: var(--track-label); }
+    .lt-place { display: flex; align-items: center; height: var(--h-strip); padding: 0 26px;
+                background: var(--primary); color: var(--paper);
+                font-size: var(--size-data); font-weight: 600; letter-spacing: var(--track-data); }
+    .lt-live  { position: fixed; right: var(--safe-x); top: var(--safe-y);
+                display: flex; align-items: center; height: var(--h-plate); padding: 0 22px;
+                background: var(--live); color: var(--paper);
+                font-size: var(--size-data); font-weight: 700; letter-spacing: var(--track-label); }
+  </style>
+</head>
+<body>
+
+  <div class="lt">
+    <!-- Erro 1: faltava o </div>. Sem ele, as linhas de baixo
+         ficavam DENTRO do nome e herdavam a letra grande. -->
+    <div class="lt-name">ANA SOUZA</div>
+
+    <!-- Erro 2: "clas" em vez de "class". O navegador aceita
+         qualquer atributo, então não reclama: só não pinta. -->
+    <div class="lt-role">REPÓRTER</div>
+
+    <!-- Erro 3: "lt place" são DUAS classes, lt e place.
+         O nome certo, sem espaço, é lt-place. -->
+    <div class="lt-place">SÃO PAULO</div>
+
+    <!-- Erro 4: o comentário terminava em "-", sem os dois
+         tracinhos e o sinal de maior. Aberto, ele engolia tudo
+         o que vinha depois, inclusive a linha do selo. -->
+    <!-- selo de ao vivo -->
+    <div class="lt-live">AO VIVO</div>
+  </div>
+
+</body>
+</html>

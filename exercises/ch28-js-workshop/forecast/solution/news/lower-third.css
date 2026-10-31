@@ -1,0 +1,44 @@
+/* Lower third do pacote: a da referência, na pele news.
+ * Cores, fontes e medidas vêm do tokens.css. */
+.lt {
+  position: absolute; left: var(--safe-x); bottom: var(--bottom-y);
+  width: 820px; height: 190px;
+  filter: var(--shadow);            /* a sombra dura fica no container */
+  visibility: hidden;
+}
+
+/* As três placas são inclinadas; o texto volta a ficar reto. */
+.lt-kicker, .lt-bar, .lt-sub {
+  position: absolute; display: flex; align-items: center;
+  transform: skewX(var(--skew)); transform-origin: left bottom;
+}
+.lt-up { display: block; transform: skewX(var(--unskew)); }
+
+/* Faixa de destaque: a função (REPÓRTER). */
+.lt-kicker { left: 26px; bottom: 136px; z-index: 3; height: var(--h-strip);
+  padding: 0 26px 0 20px; background: var(--accent); }
+.lt-role { display: block; font: 700 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--on-accent);
+  text-transform: uppercase; white-space: nowrap; }
+
+/* Placa do nome, com a lâmina à esquerda e a cauda em ink-2. */
+.lt-bar { left: 0; bottom: 44px; z-index: 2; height: var(--h-bar); min-width: 600px;
+  padding: 0 120px 0 34px; overflow: hidden;
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); }
+.lt-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--blade); background: var(--accent); }
+.lt-name { display: block; font: var(--size-display)/1.15 var(--font-display);
+  letter-spacing: .015em; color: var(--paper);
+  text-transform: uppercase; white-space: nowrap; }
+
+/* Sub-barra: o detalhe (de onde, sobre o quê). */
+.lt-sub { left: 10px; bottom: 0; z-index: 1; height: var(--h-strip);
+  padding: 0 26px; background: var(--primary); }
+.lt-detail { display: block; font: 600 var(--size-data) var(--font-data);
+  letter-spacing: var(--track-data); color: var(--paper);
+  text-transform: uppercase; white-space: nowrap; }
+
+/* Sublinhado de 4 px. */
+.lt-underline { position: absolute; left: 10px; bottom: -8px; width: 420px;
+  height: var(--rule); background: var(--accent);
+  transform: skewX(var(--skew)); transform-origin: left; }

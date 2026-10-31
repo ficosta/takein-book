@@ -1,0 +1,156 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.table",
+  "version": "1.0.0",
+  "name": "News · Tabela do campeonato",
+  "description": "Classificação em páginas de seis times. Cada Play avança uma página.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "table.mjs",
+  "stepCount": -1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/table.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line",
+        "default": "Volt Liga"
+      },
+      "round": {
+        "type": "string",
+        "title": "Rodada",
+        "gddType": "single-line",
+        "default": "Rodada 31"
+      },
+      "teams": {
+        "type": "array",
+        "title": "Times",
+        "items": {
+          "type": "object",
+          "properties": {
+            "team": {
+              "type": "string",
+              "title": "Time",
+              "gddType": "single-line"
+            },
+            "played": {
+              "type": "integer",
+              "title": "J"
+            },
+            "wins": {
+              "type": "integer",
+              "title": "V"
+            },
+            "goalDiff": {
+              "type": "integer",
+              "title": "SG"
+            },
+            "points": {
+              "type": "integer",
+              "title": "P"
+            }
+          }
+        },
+        "default": [
+          {
+            "team": "CD Meridian",
+            "played": 30,
+            "wins": 20,
+            "goalDiff": 31,
+            "points": 66
+          },
+          {
+            "team": "Atlético Oro",
+            "played": 30,
+            "wins": 19,
+            "goalDiff": 28,
+            "points": 64
+          },
+          {
+            "team": "Nova Castela",
+            "played": 30,
+            "wins": 17,
+            "goalDiff": 22,
+            "points": 59
+          },
+          {
+            "team": "FK Dynamo Sul",
+            "played": 30,
+            "wins": 16,
+            "goalDiff": 15,
+            "points": 55
+          },
+          {
+            "team": "Real San Marco",
+            "played": 30,
+            "wins": 14,
+            "goalDiff": 11,
+            "points": 51
+          },
+          {
+            "team": "União Litoral",
+            "played": 30,
+            "wins": 13,
+            "goalDiff": 8,
+            "points": 48
+          },
+          {
+            "team": "Sporting Távora",
+            "played": 30,
+            "wins": 12,
+            "goalDiff": 6,
+            "points": 46
+          },
+          {
+            "team": "Caledonia FC",
+            "played": 30,
+            "wins": 12,
+            "goalDiff": 1,
+            "points": 43
+          },
+          {
+            "team": "Vikingur Norte",
+            "played": 30,
+            "wins": 11,
+            "goalDiff": -2,
+            "points": 41
+          },
+          {
+            "team": "Olympia Verde",
+            "played": 30,
+            "wins": 10,
+            "goalDiff": -4,
+            "points": 39
+          },
+          {
+            "team": "Racing Aurora",
+            "played": 30,
+            "wins": 9,
+            "goalDiff": -9,
+            "points": 35
+          },
+          {
+            "team": "Estrela Serrana",
+            "played": 30,
+            "wins": 8,
+            "goalDiff": -14,
+            "points": 31
+          }
+        ]
+      }
+    }
+  }
+}

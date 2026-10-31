@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.statement",
+  "version": "1.0.0",
+  "name": "Nota oficial em 3 passos",
+  "description": "Uma nota longa dividida em três telas. Cada Play mostra a próxima.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 3,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line",
+        "default": "Prefeitura de São Paulo"
+      },
+      "text1": {
+        "type": "string",
+        "title": "Trecho 1",
+        "gddType": "multi-line",
+        "default": "A prefeitura informa que as aulas da rede municipal estão suspensas nesta segunda-feira."
+      },
+      "text2": {
+        "type": "string",
+        "title": "Trecho 2",
+        "gddType": "multi-line",
+        "default": "A medida vale para as 312 escolas da cidade, por causa da chuva forte prevista para a manhã."
+      },
+      "text3": {
+        "type": "string",
+        "title": "Trecho 3",
+        "gddType": "multi-line",
+        "default": "As aulas voltam na terça. As famílias recebem as orientações pelo aplicativo da secretaria."
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+/* A vitrine: os tokens do pacote na tela, para conferir a pele.
+ * Tela cheia: o conteúdo ocupa 1440 px no centro do quadro. */
+.sc {
+  position: absolute; left: 240px; top: 270px; width: 1440px;
+  filter: var(--shadow); visibility: hidden;
+}
+
+/* Cabeçalho: kicker, placa do título e sub-barra, como a lower third. */
+.sc-kicker, .sc-bar, .sc-sub {
+  display: flex; align-items: center; width: max-content;
+  transform: skewX(var(--skew)); transform-origin: left bottom;
+}
+.sc-up { display: block; transform: skewX(var(--unskew)); }
+.sc-kicker { height: var(--h-strip); margin-left: 26px; padding: 0 26px 0 20px;
+  background: var(--accent); }
+.sc-kicker .sc-up { font: 700 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--on-accent); }
+.sc-bar { position: relative; height: var(--h-bar); min-width: 600px;
+  padding: 0 120px 0 34px; overflow: hidden;
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); }
+.sc-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--blade); background: var(--accent); }
+.sc-title { font: var(--size-display)/1.15 var(--font-display); letter-spacing: .015em;
+  color: var(--paper); text-transform: uppercase; white-space: nowrap; }
+.sc-sub { height: var(--h-strip); margin-left: 10px; padding: 0 26px;
+  background: var(--primary); }
+.sc-sub .sc-up { font: 600 var(--size-data) var(--font-data);
+  letter-spacing: var(--track-data); color: var(--paper); text-transform: uppercase; }
+
+/* As amostras de cor: uma placa inclinada por token. */
+.sc-swatches { display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px;
+  margin-top: 48px; }
+.sc-plate { transform: skewX(var(--skew)); transform-origin: left bottom; }
+.sc-chip { height: 120px; margin-bottom: var(--rule); }
+.sc-name { display: flex; align-items: center; height: var(--h-strip); padding: 0 16px;
+  background: var(--ink); }
+.sc-name .sc-up { font: 600 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-data); color: var(--dim); }
+
+/* As duas fontes do sistema. */
+.sc-type { display: flex; align-items: center; gap: 32px; height: var(--h-bar);
+  margin-top: 32px; padding: 0 34px; background: var(--ink);
+  border-left: var(--blade) solid var(--accent);
+  transform: skewX(var(--skew)); transform-origin: left bottom; }
+.sc-display { font: var(--size-display)/1 var(--font-display); color: var(--paper); }
+.sc-data { font: 600 var(--size-data-l) var(--font-data); letter-spacing: var(--track-label);
+  color: var(--dim); text-transform: uppercase; }

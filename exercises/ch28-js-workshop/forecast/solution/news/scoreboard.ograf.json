@@ -1,0 +1,110 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.scoreboard",
+  "version": "1.0.0",
+  "name": "News · Placar",
+  "description": "Placar com relógio de jogo. Gols e relógio pelas ações.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "scoreboard.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/scoreboard.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "league": {
+        "type": "string",
+        "title": "Sigla da liga",
+        "gddType": "single-line",
+        "maxLength": 3,
+        "default": "VL"
+      },
+      "home": {
+        "type": "string",
+        "title": "Sigla da casa",
+        "gddType": "single-line",
+        "maxLength": 3,
+        "default": "MER"
+      },
+      "away": {
+        "type": "string",
+        "title": "Sigla de fora",
+        "gddType": "single-line",
+        "maxLength": 3,
+        "default": "ATL"
+      },
+      "homeColor": {
+        "type": "string",
+        "title": "Cor da casa",
+        "gddType": "color-rrggbb",
+        "pattern": "^#[0-9a-f]{6}$",
+        "default": "#ffffff"
+      },
+      "awayColor": {
+        "type": "string",
+        "title": "Cor de fora",
+        "gddType": "color-rrggbb",
+        "pattern": "^#[0-9a-f]{6}$",
+        "default": "#e5322d"
+      },
+      "period": {
+        "type": "string",
+        "title": "Período",
+        "gddType": "select",
+        "enum": [
+          "1T",
+          "INT",
+          "2T",
+          "FIM"
+        ],
+        "gddOptions": {
+          "labels": {
+            "1T": "1º tempo",
+            "INT": "Intervalo",
+            "2T": "2º tempo",
+            "FIM": "Fim de jogo"
+          }
+        },
+        "default": "2T"
+      }
+    }
+  },
+  "customActions": [
+    {
+      "id": "home-goal",
+      "name": "Gol da casa",
+      "schema": null
+    },
+    {
+      "id": "away-goal",
+      "name": "Gol de fora",
+      "schema": null
+    },
+    {
+      "id": "start-clock",
+      "name": "Iniciar relógio",
+      "schema": null
+    },
+    {
+      "id": "pause-clock",
+      "name": "Pausar relógio",
+      "schema": null
+    },
+    {
+      "id": "reset-clock",
+      "name": "Zerar relógio",
+      "schema": null
+    }
+  ]
+}

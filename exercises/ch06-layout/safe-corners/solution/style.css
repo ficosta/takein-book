@@ -1,0 +1,51 @@
+/* EXERCÍCIO 6.2 — solução. */
+
+/* O palco: o quadro de 1920 × 1080, referência das peças. */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-data);
+}
+
+/* Áreas de segurança de 1920 × 1080:
+ *   ação (action safe): 3,5% da borda  → 67 × 38 px
+ *   título (title safe): 5% da borda   → 96 × 54 px
+ * A linha de baixo fica mais alta, a 96 px da base: o espaço
+ * abaixo dela é do ticker. */
+.guide { position: absolute; pointer-events: none; }
+.guide-action { inset: 38px 67px; border: 2px dashed var(--faint); }
+.guide-title  { inset: var(--safe-y) var(--safe-x); border: 2px dashed var(--primary); }
+.guide-bottom { left: 0; right: 0; bottom: var(--bottom-y); border-top: 2px dotted var(--primary); }
+
+.piece {
+  position: absolute;
+  height: var(--h-plate);
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 700;
+  letter-spacing: var(--track-data);
+}
+.live { background: var(--live); }
+
+/* Em cima: encostadas na área de título. */
+.score   { top: var(--safe-y);     left: var(--safe-x); }
+.live    { top: var(--safe-y);     right: var(--safe-x); }
+
+/* Embaixo: apoiadas na linha de baixo. */
+.credit  { bottom: var(--bottom-y); left: var(--safe-x); }
+.hashtag { bottom: var(--bottom-y); right: var(--safe-x); }
+
+/* top/left 50% põem o CANTO da peça no centro.
+ * translate(-50%, -50%) volta metade do tamanho dela. */
+.title {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

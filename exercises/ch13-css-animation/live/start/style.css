@@ -1,0 +1,111 @@
+/* CAPÍTULO 13 — Loop e entrada escalonada. Complete os TODO. */
+
+/* O quadro: 1920 × 1080, fundo transparente. */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: var(--font-data);
+  color: var(--paper);
+}
+
+/* Todas as placas: a forma inclinada é desenhada no ::before,
+ * atrás do texto. Assim o texto fica reto. */
+.bug, .kicker, .headlines li {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+.bug::before, .kicker::before, .headlines li::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: skewX(var(--skew));
+}
+
+/* O selo: canto de cima, à direita da área de título. */
+.bug {
+  position: absolute;
+  right: var(--safe-x);
+  top: var(--safe-y);
+  height: var(--h-plate);
+  gap: 12px;
+  padding: 0 24px;
+  font-weight: 700;
+  font-size: var(--size-data);
+  letter-spacing: var(--track-label);
+  filter: var(--shadow);
+}
+.bug::before { background: var(--live); transform-origin: right top; }
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--paper);
+  /* TODO 2 — Ligue o pulso, para sempre:
+   *   animation: pulse 1.2s ease-in-out infinite; */
+}
+
+/* TODO 1 — O pulso: no meio do ciclo (50%), o ponto fica
+ *          mais apagado (opacity 0.3) e menor (scale 0.75).
+ *          No começo e no fim (0% e 100%), normal. */
+@keyframes pulse {
+
+}
+
+/* As manchetes: canto de baixo, à esquerda da área de título. */
+.kicker {
+  position: absolute;
+  left: var(--safe-x);
+  bottom: calc(var(--bottom-y) + 3 * var(--h-plate) + 3 * 4px);
+  height: var(--h-strip);
+  padding: 0 26px;
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: var(--size-label);
+  letter-spacing: var(--track-label);
+}
+.kicker::before { background: var(--accent); transform-origin: left bottom; }
+
+.headlines {
+  position: absolute;
+  left: var(--safe-x);
+  bottom: var(--bottom-y);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  filter: var(--shadow);
+}
+.headlines li::before {
+  background: var(--ink);
+  border-left: var(--blade) solid var(--accent);
+  transform-origin: left bottom;
+}
+.headlines li {
+  height: var(--h-plate);
+  padding: 0 40px 0 34px;
+  font-weight: 700;
+  font-size: var(--size-data-l);
+  letter-spacing: var(--track-data);
+  text-transform: uppercase;
+  /* TODO 3 — Cada manchete sobe e aparece. "both" mantém o
+   *          estado do primeiro quadro antes de começar e o
+   *          do último depois de acabar:
+   *   animation: rise 0.5s ease-out both; */
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* TODO 4 — Escalone: a 2ª manchete começa 0,15 s depois, a 3ª
+ *          0,3 s depois. Use animation-delay com :nth-child(2)
+ *          e :nth-child(3). */

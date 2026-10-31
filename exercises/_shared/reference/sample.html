@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!-- Referência visual dos exemplos (ver ../DESIGN.md). Estados finais, sem animação.
+     ?scene=liga (padrão) ou ?scene=news -->
+<head>
+<meta charset="utf-8">
+<title>Referência · sistema visual</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body { font-family: var(--font-data); background: #2a2a30; }
+  /* Fundos de teste: campo (liga) e estúdio (news). */
+  body.bg-liga { background: repeating-linear-gradient(90deg, rgb(255 255 255 / .03) 0 120px, transparent 120px 240px),
+    radial-gradient(1500px 1000px at 50% 30%, #3f7d3a, #1f4d24 70%, #143318); }
+  body.bg-news { background: radial-gradient(1200px 800px at 65% 35%, #5b6b80, #2b3442 60%, #161b24); }
+
+  .skew { transform: skewX(var(--skew)); transform-origin: left bottom; }
+  .up { display: inline-block; transform: skewX(var(--unskew)); }
+
+  /* ── Lower third ─────────────────────────────────────────── */
+  .lt { position: absolute; left: var(--safe-x); bottom: 96px; width: 820px; height: 190px; filter: var(--shadow); }
+  .lt-ghost { position: absolute; right: -10px; bottom: 16px; z-index: 0;
+    font: var(--size-ghost)/1 var(--font-display); color: transparent; -webkit-text-stroke: 3px var(--accent); opacity: .28;
+    transform: skewX(var(--skew)); }
+  .lt-kicker { position: absolute; left: 26px; bottom: 136px; z-index: 3; height: var(--h-strip); display: flex; align-items: center;
+    padding: 0 26px 0 20px; background: var(--accent); }
+  .lt-kicker span { font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); color: var(--ink); white-space: nowrap; }
+  .lt-bar { position: absolute; left: 0; bottom: 44px; z-index: 2; height: var(--h-bar); min-width: 600px; display: flex; align-items: center;
+    padding: 0 120px 0 34px; background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); }
+  .lt-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--blade); background: var(--accent); }
+  .lt-name { margin: 0; font: var(--size-display)/1.15 var(--font-display); letter-spacing: .015em; color: var(--paper); white-space: nowrap; }
+  .lt-sub { position: absolute; left: 10px; bottom: 0; z-index: 1; height: var(--h-strip); display: flex; align-items: center; gap: 14px;
+    padding: 0 26px; background: var(--primary); }
+  .lt-sub span { font-weight: 600; font-size: var(--size-data); letter-spacing: var(--track-data); color: var(--paper); white-space: nowrap; }
+  .lt-sub i { width: 7px; height: 7px; background: var(--accent); }
+  .lt-underline { position: absolute; left: 10px; bottom: -8px; width: 420px; height: var(--rule); background: var(--accent);
+    transform: skewX(var(--skew)); }
+
+  /* ── Placar (scorebug) ───────────────────────────────────── */
+  .sb { position: absolute; left: var(--safe-x); top: var(--safe-y); height: var(--h-plate); display: flex; filter: var(--shadow); }
+  .sb > div { display: flex; align-items: center; justify-content: center; height: 100%; }
+  .sb-league { width: 62px; background: var(--accent); font: var(--size-data-l) var(--font-display); color: var(--ink); }
+  .sb-team { width: 104px; background: var(--ink); font: 700 var(--size-data-l) var(--font-data); letter-spacing: var(--track-data); color: var(--paper); }
+  .sb-score { width: 112px; background: var(--primary); font: var(--size-score) var(--font-display); color: var(--paper); gap: 10px; }
+  .sb-score b { font-weight: 400; color: var(--accent); }
+  .sb-clock { padding: 0 22px; background: var(--ink-2); font: 600 var(--size-data-l) var(--font-data); color: var(--paper);
+    font-variant-numeric: tabular-nums; gap: 10px; }
+  .sb-clock small { font-size: var(--size-data); color: var(--accent); letter-spacing: var(--track-data); }
+
+  /* ── Bug "ao vivo" + relógio (canto de cima, à direita) ──── */
+  .bug { position: absolute; right: var(--safe-x); top: var(--safe-y); height: var(--h-plate); display: flex; filter: var(--shadow); }
+  .bug.skew { transform-origin: right top; }  /* ancorado à direita: inclina para dentro da área segura */
+  .bug > div { display: flex; align-items: center; height: 100%; }
+  .bug-live { gap: 12px; padding: 0 22px; background: var(--live); font: 700 var(--size-data) var(--font-data); letter-spacing: var(--track-label); color: #fff; }
+  .bug-live i { width: 12px; height: 12px; border-radius: 50%; background: #fff; }
+  .bug-clock { padding: 0 20px; background: var(--ink); font: var(--size-score) var(--font-display); letter-spacing: .03em; color: var(--paper);
+    font-variant-numeric: tabular-nums; }
+
+  /* ── Locator (news): cidade com a sigla vazada atrás ─────── */
+  .loc { position: absolute; right: var(--safe-x); bottom: 96px; height: 120px; width: 520px; filter: var(--shadow); }
+  .loc-ghost { position: absolute; right: 0; bottom: 6px; font: var(--size-ghost-s)/1 var(--font-display); color: transparent;
+    -webkit-text-stroke: 3px var(--accent); opacity: .28; transform: skewX(var(--skew)); }
+  .loc-box { position: absolute; right: 30px; bottom: 30px; height: 60px; display: flex; align-items: center; gap: 16px;
+    padding: 0 26px; background: var(--ink); border-left: 10px solid var(--accent); }
+  .loc-box span { font: var(--size-score) var(--font-display); letter-spacing: .03em; color: var(--paper); }
+  .loc-box small { font: 600 var(--size-label) var(--font-data); letter-spacing: var(--track-label); color: var(--dim); }
+</style>
+</head>
+<body>
+  <div id="liga" hidden>
+    <div class="sb skew">
+      <div class="sb-league"><span class="up">VL</span></div>
+      <div class="sb-team"><span class="up">MER</span></div>
+      <div class="sb-score"><span class="up">2 <b>:</b> 1</span></div>
+      <div class="sb-team"><span class="up">ATL</span></div>
+      <div class="sb-clock"><span class="up"><small>2T</small> 67:46</span></div>
+    </div>
+    <div class="lt">
+      <div class="lt-ghost">9</div>
+      <div class="lt-kicker skew"><span class="up">ATACANTE</span></div>
+      <div class="lt-bar skew"><span class="up"><h1 class="lt-name">RAFAEL TORRES</h1></span></div>
+      <div class="lt-sub skew"><span class="up">CD MERIDIAN</span><i class="up"></i><span class="up">CAMISA 9</span></div>
+      <div class="lt-underline"></div>
+    </div>
+  </div>
+
+  <div id="news" hidden>
+    <div class="bug skew">
+      <div class="bug-live"><span class="up" style="display:flex;align-items:center;gap:12px"><i></i>AO VIVO</span></div>
+      <div class="bug-clock"><span class="up">19:42</span></div>
+    </div>
+    <div class="lt">
+      <div class="lt-ghost">SP</div>
+      <div class="lt-kicker skew"><span class="up">REPÓRTER</span></div>
+      <div class="lt-bar skew"><span class="up"><h1 class="lt-name">ANA SOUZA</h1></span></div>
+      <div class="lt-sub skew"><span class="up">DIRETO DA AVENIDA PAULISTA</span></div>
+      <div class="lt-underline"></div>
+    </div>
+  </div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const scene = q.get('scene') ?? 'liga';
+  document.getElementById(scene).hidden = false;
+  if (scene === 'news') document.documentElement.dataset.skin = 'news';
+  document.body.classList.add(`bg-${q.get('bg') ?? scene}`);
+</script>
+</body>
+</html>

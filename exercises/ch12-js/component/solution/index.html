@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu primeiro componente</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    body { margin: 0; font: 600 var(--size-label) var(--font-data); }
+
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    .stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* Os botões ficam embaixo do quadro, fora do ar. */
+    .controls { display: flex; gap: 8px; padding: 16px var(--safe-x); }
+    button { font: inherit; padding: 6px 16px; }
+
+    /* O cartão: canto de baixo, à esquerda da área de título. */
+    .box {
+      position: absolute; left: var(--safe-x); bottom: var(--bottom-y); z-index: 0;
+      height: var(--h-bar); display: flex; align-items: center;
+      padding: 0 80px 0 44px; filter: var(--shadow);
+      font: var(--size-display) var(--font-display); color: var(--paper);
+      text-transform: uppercase; white-space: nowrap;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    /* A placa inclinada é desenhada no ::before, atrás do texto. */
+    .box::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: var(--ink); border-left: var(--blade) solid var(--accent);
+      transform: skewX(var(--skew)); transform-origin: left bottom;
+    }
+    .box.visible { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="stage">
+    <!-- Uma tag que não existe no HTML: nós vamos criá-la. -->
+    <name-card></name-card>
+  </div>
+
+  <div class="controls">
+    <button id="show">Mostrar</button>
+    <button id="hide">Esconder</button>
+    <button id="swap">Trocar nome</button>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

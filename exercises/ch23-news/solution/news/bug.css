@@ -1,0 +1,29 @@
+/* Bug: AO VIVO + relógio, no canto de cima à direita. */
+.bug {
+  position: absolute; right: var(--safe-x); top: var(--safe-y);
+  height: var(--h-plate);
+  filter: var(--shadow); visibility: hidden;
+}
+/* Ancorado à direita: a inclinação entra na área segura. */
+.bug-plates { display: flex; height: 100%;
+  transform: skewX(var(--skew)); transform-origin: right top; }
+.bug-live, .bug-clock { display: flex; align-items: center; overflow: hidden; }
+.bug-live { padding: 0 22px; background: var(--live); }
+.bug-clock { padding: 0 20px; background: var(--ink); }
+/* O display: flex acima venceria o atributo hidden do navegador. */
+.bug-clock[hidden] { display: none; }
+.bug-up { display: flex; align-items: center; gap: 12px;
+  transform: skewX(var(--unskew)); }
+
+/* O ícone: um aro que se desenha e o ponto, os dois em
+   currentColor (a cor do texto). */
+.bug-icon { width: 24px; height: 24px; color: var(--paper); }
+.bug-ring { fill: none; stroke: currentColor; stroke-width: 2.5; }
+.bug-dot { fill: currentColor; transform-box: fill-box;
+  transform-origin: center; }
+
+.bug-label { font: 700 var(--size-data) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--paper);
+  text-transform: uppercase; white-space: nowrap; }
+.bug-time { font: var(--size-score) var(--font-display); letter-spacing: .03em;
+  color: var(--paper); font-variant-numeric: tabular-nums; }

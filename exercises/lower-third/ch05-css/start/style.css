@@ -1,0 +1,74 @@
+/* CAPÍTULO 5 — Cores, fontes e caixas.
+ * Complete os TODO. Salve e recarregue a cada bloco.
+ * Diminua o zoom do Chrome (⌘ − / Ctrl −) para ver o quadro todo.
+ *
+ * Antes de começar, abra o tokens.css: é o arquivo do designer, com as
+ * fontes (@font-face) e as variáveis de cor e de tamanho. Ele vem antes
+ * deste arquivo no index.html. Aqui você só usa as variáveis, com var(). */
+
+/* ── Pronto: o palco de 1920 × 1080. O fundo é só para enxergar
+ *    (o mesmo "studio" do mini-controller); no ar, ele é transparente. ── */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(1200px 800px at 65% 35%, #5b6b80, #2b3442 60%, #161b24);
+}
+
+/* TODO 1 — No container, a fonte de dados para todos os filhos:
+ *   font-family: var(--font-data); */
+.lt {
+
+}
+
+/* TODO 2 — O número fantasma: fonte var(--font-display),
+ *          tamanho var(--size-ghost), line-height 1, cor var(--accent). */
+.lt-ghost {
+
+}
+
+/* TODO 3 — O kicker: altura var(--h-strip), padding 0 26px 0 20px
+ *          e fundo var(--accent). A função, dentro dele:
+ *          tamanho var(--size-label), peso 700, letter-spacing
+ *          var(--track-label), maiúsculas (text-transform) e
+ *          cor var(--on-accent). */
+.lt-kicker {
+
+}
+
+.lt-role {
+
+}
+
+/* TODO 4 — A placa do nome: altura var(--h-bar), padding 0 120px 0 34px
+ *          e fundo var(--ink). O nome: fonte var(--font-display),
+ *          tamanho var(--size-display), line-height 1.15,
+ *          letter-spacing 0.015em, maiúsculas e cor var(--paper). */
+.lt-bar {
+
+}
+
+.lt-name {
+
+}
+
+/* TODO 5 — A sub-barra: altura var(--h-strip), padding 0 26px e fundo
+ *          var(--primary). Time e camisa (uma regra para os dois):
+ *          tamanho var(--size-data), peso 600, letter-spacing
+ *          var(--track-data), maiúsculas e cor var(--paper). */
+.lt-sub {
+
+}
+
+.lt-team,
+.lt-shirt {
+
+}
+
+/* TODO 6 — O sublinhado: largura 420px, altura var(--rule)
+ *          e fundo var(--accent). */
+.lt-underline {
+
+}

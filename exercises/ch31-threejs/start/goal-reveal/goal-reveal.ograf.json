@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.goal-reveal",
+  "version": "1.0.0",
+  "name": "Gol em 3D",
+  "description": "Gol de tela cheia: as placas do sistema, extrudadas com three.js, entram girando e o texto sobe de dentro delas. Capítulo 31 do livro TAKE IN.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": true,
+  "thumbnails": [
+    {
+      "file": "thumbnail.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "headline": {
+        "type": "string",
+        "title": "Chamada",
+        "gddType": "single-line",
+        "default": "Gol"
+      },
+      "name": {
+        "type": "string",
+        "title": "Nome",
+        "gddType": "single-line",
+        "default": "Rafael Torres"
+      },
+      "detail": {
+        "type": "string",
+        "title": "Detalhe",
+        "gddType": "single-line",
+        "default": "CD Meridian 2 × 1 Atlético Oro · 67'"
+      },
+      "number": {
+        "type": "string",
+        "title": "Camisa",
+        "gddType": "single-line",
+        "default": "9"
+      }
+    }
+  }
+}

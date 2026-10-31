@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Traço desenhado</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* A cotação: canto de baixo, à direita da área de título. */
+    .fx {
+      position: absolute; right: var(--safe-x); bottom: var(--bottom-y);
+      display: flex; flex-direction: column; align-items: flex-end;
+      filter: var(--shadow);
+    }
+    .fx-kicker, .fx-chart {
+      transform: skewX(var(--skew)); transform-origin: right top;
+    }
+    .fx-kicker {
+      height: var(--h-strip); display: flex; align-items: center;
+      padding: 0 26px; background: var(--accent);
+    }
+    .fx-kicker span {
+      transform: skewX(var(--unskew));
+      font: 700 var(--size-label) var(--font-data);
+      letter-spacing: var(--track-label); color: var(--on-accent);
+    }
+    .fx-chart {
+      padding: 22px 30px 26px 34px; background: var(--ink);
+      border-left: var(--blade) solid var(--accent);
+    }
+    .fx-chart > * { transform: skewX(var(--unskew)); }
+    .fx-value {
+      display: flex; align-items: baseline; gap: 16px;
+      font: var(--size-score) var(--font-display); color: var(--paper);
+      font-variant-numeric: tabular-nums;
+    }
+    .fx-value small {
+      font: 700 var(--size-data) var(--font-data);
+      letter-spacing: var(--track-data); color: var(--up);
+    }
+    svg { display: block; width: 640px; margin-top: 10px; }
+
+    .line {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      /* Um tracejado do tamanho do traço, deslocado para
+       * fora: a linha começa invisível. */
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: draw 2s ease-in-out forwards;
+    }
+
+    /* Pronta: leva o deslocamento de 1 até 0. A animação em
+     * CSS é assunto do capítulo 13. */
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fx">
+    <div class="fx-kicker"><span>DÓLAR COMERCIAL</span></div>
+    <div class="fx-chart">
+      <div class="fx-value">R$ 5,42 <small>▲ 0,8%</small></div>
+
+      <!-- Um gráfico de linha, como os de cotação. -->
+      <svg viewBox="0 0 320 120">
+        <path class="line" pathLength="1"
+              d="M 10 100 L 60 80 L 100 90 L 150 40 L 200 60
+                 L 250 20 L 310 30"/>
+      </svg>
+    </div>
+  </div>
+
+</body>
+</html>

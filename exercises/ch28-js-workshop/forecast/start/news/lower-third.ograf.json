@@ -1,0 +1,46 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.lower-third",
+  "version": "1.0.0",
+  "name": "News · Lower third",
+  "description": "Nome, função e detalhe, nas cores da pele news.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "lower-third.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/lower-third.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Nome",
+        "gddType": "single-line",
+        "default": "Ana Souza"
+      },
+      "role": {
+        "type": "string",
+        "title": "Função",
+        "gddType": "single-line",
+        "default": "Repórter"
+      },
+      "detail": {
+        "type": "string",
+        "title": "Detalhe",
+        "gddType": "single-line",
+        "default": "Direto da Avenida Paulista"
+      }
+    }
+  }
+}

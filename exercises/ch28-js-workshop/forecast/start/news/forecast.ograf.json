@@ -1,0 +1,59 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.forecast",
+  "version": "1.0.0",
+  "name": "News · Previsão do tempo",
+  "description": "Previsão de três dias com dados da Open-Meteo. Precisa de internet no playout.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "forecast.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/forecast.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "type": "string",
+        "title": "Cidade",
+        "gddType": "select",
+        "enum": [
+          "sao-paulo",
+          "rio",
+          "brasilia",
+          "porto-alegre",
+          "recife",
+          "manaus"
+        ],
+        "gddOptions": {
+          "labels": {
+            "sao-paulo": "São Paulo",
+            "rio": "Rio de Janeiro",
+            "brasilia": "Brasília",
+            "porto-alegre": "Porto Alegre",
+            "recife": "Recife",
+            "manaus": "Manaus"
+          }
+        },
+        "default": "sao-paulo"
+      },
+      "interval": {
+        "type": "integer",
+        "title": "Atualizar a cada (minutos)",
+        "minimum": 1,
+        "maximum": 60,
+        "default": 10
+      }
+    }
+  }
+}

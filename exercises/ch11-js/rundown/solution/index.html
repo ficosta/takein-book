@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Roteiro</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* A frase: canto de baixo, à esquerda da área de título. */
+    .caption {
+      position: absolute; left: var(--safe-x); bottom: var(--bottom-y); z-index: 0;
+      height: var(--h-bar); display: flex; align-items: center;
+      padding: 0 60px 0 44px; filter: var(--shadow);
+      font: var(--size-display) var(--font-display); color: var(--paper);
+      text-transform: uppercase; white-space: nowrap;
+    }
+    /* A placa inclinada é desenhada no ::before, atrás do texto.
+     * Assim o texto fica reto e o JavaScript escreve direto nele. */
+    .caption::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: var(--ink); border-left: var(--blade) solid var(--accent);
+      transform: skewX(var(--skew)); transform-origin: left bottom;
+    }
+    /* Sem texto, sem placa. */
+    .caption:empty { display: none; }
+  </style>
+</head>
+<body>
+  <div class="caption"></div>
+  <script src="script.js"></script>
+</body>
+</html>

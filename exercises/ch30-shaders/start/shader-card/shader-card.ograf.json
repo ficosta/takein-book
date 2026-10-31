@@ -1,0 +1,46 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.shader-card",
+  "version": "1.0.0",
+  "name": "Cartela com shader",
+  "description": "Cartela de tela cheia com o fundo pintado por um shader WebGL: lâminas a −12° que varrem a tela e faixas que andam devagar. Capítulo 30 do livro TAKE IN.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": true,
+  "thumbnails": [
+    {
+      "file": "thumbnail.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kicker": {
+        "type": "string",
+        "title": "Chamada",
+        "gddType": "single-line",
+        "default": "Volt Liga"
+      },
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line",
+        "default": "CD Meridian × Atlético Oro"
+      },
+      "subtitle": {
+        "type": "string",
+        "title": "Linha de apoio",
+        "gddType": "single-line",
+        "default": "2º tempo · MER 2 × 1 ATL"
+      }
+    }
+  }
+}

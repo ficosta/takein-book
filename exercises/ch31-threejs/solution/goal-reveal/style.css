@@ -1,0 +1,149 @@
+/* Gol em 3D — capítulo 31.
+ *
+ * O CSS desenha o gráfico inteiro, como sempre. Com WebGL, o
+ * three.js mede as placas (.plate) e desenha a versão 3D no canvas;
+ * as placas do CSS ficam transparentes e só o texto continua no HTML.
+ * Sem WebGL, nada muda: o gráfico vai ao ar em 2D. */
+
+.goal,
+.goal * {
+  box-sizing: content-box;
+}
+
+.goal {
+  font-family: var(--font-data);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  visibility: hidden;              /* começa fora do ar */
+}
+
+/* O canvas cobre o quadro. A sombra dura vale para o 3D também:
+ * o filtro segue o contorno do que o three.js desenhou. */
+.goal-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  z-index: 1;
+  filter: var(--shadow);
+}
+
+/* O número vazado: atrás das placas e do canvas. */
+.goal-ghost {
+  font-family: var(--font-display);
+  font-size: var(--size-ghost);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--accent);
+  opacity: 0.28;
+  transform: skewX(var(--skew));
+  position: absolute;
+  left: 1200px;
+  top: 436px;
+  z-index: 0;
+}
+
+/* Tela cheia: o bloco fica no centro do quadro. */
+.goal-plates {
+  position: absolute;
+  left: 600px;
+  top: 403px;
+  width: 820px;
+  height: 274px;
+  z-index: 2;
+  filter: var(--shadow);
+}
+
+/* Toda placa: inclinada, texto no prumo e centrado na vertical.
+ * --depth é a profundidade da extrusão; --side, a cor das laterais. */
+.plate {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  overflow: hidden;                /* o texto entra "de dentro" */
+  transform: skewX(var(--skew));
+  transform-origin: left bottom;
+  --depth: 40;
+  --side: var(--ink-2);
+}
+.goal-up {
+  display: inline-block;
+  transform: skewX(var(--unskew));
+  white-space: nowrap;
+}
+
+/* Com o 3D no ar, as placas do CSS só guardam o lugar do texto.
+ * A sombra passa para o canvas: no texto, ela cairia sobre a placa. */
+.goal.has-3d .plate {
+  background: transparent;
+  border-left-color: transparent;
+}
+.goal.has-3d .goal-plates { filter: none; }
+.goal.has-3d .goal-underline { filter: var(--shadow); }
+
+.goal-word {
+  left: 26px;
+  top: 0;
+  height: 130px;
+  padding: 0 44px 0 36px;
+  background: var(--accent);
+  --depth: 56;
+}
+.goal-word .goal-up {
+  font-family: var(--font-display);
+  font-size: var(--size-hero);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--on-accent);
+}
+
+/* A placa do nome, com a lâmina de destaque na borda esquerda. */
+.goal-bar {
+  left: 0;
+  top: 130px;
+  height: var(--h-bar);
+  min-width: 460px;               /* nome curto não deixa a placa pequena */
+  padding: 0 120px 0 24px;        /* 24 + 10 da lâmina = 34, como na lower third */
+  background: var(--ink);
+  border-left: var(--blade) solid var(--accent);
+  --side: var(--primary);
+}
+.goal-bar .goal-up {
+  font-family: var(--font-display);
+  font-size: var(--size-display);
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.goal-sub {
+  left: 10px;
+  top: 222px;
+  height: var(--h-strip);
+  padding: 0 26px;
+  background: var(--primary);
+  --depth: 24;
+}
+.goal-sub .goal-up {
+  font-size: var(--size-data);
+  font-weight: 600;
+  letter-spacing: var(--track-data);
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.goal-underline {
+  position: absolute;
+  left: 10px;
+  top: 270px;                      /* 8 px abaixo da sub-barra */
+  width: 420px;
+  height: var(--rule);
+  background: var(--accent);
+  transform-origin: left center;
+}

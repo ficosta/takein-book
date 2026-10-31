@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Módulos</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* O quadro: 1920 × 1080, fundo transparente. */
+    body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+
+    /* O resultado: canto de baixo, à direita da área de título. */
+    .result {
+      position: absolute; right: var(--safe-x); bottom: var(--bottom-y);
+      display: flex; flex-direction: column; align-items: flex-end;
+      filter: var(--shadow);
+    }
+    .kicker, .output {
+      position: relative; z-index: 0;
+      display: flex; align-items: center; padding: 0 30px;
+    }
+    /* A placa inclinada é desenhada no ::before, atrás do texto. */
+    .kicker::before, .output::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      transform: skewX(var(--skew)); transform-origin: right top;
+    }
+    .kicker {
+      height: var(--h-strip); color: var(--on-accent);
+      font: 700 var(--size-label) var(--font-data); letter-spacing: var(--track-label);
+    }
+    .kicker::before { background: var(--accent); }
+    .output {
+      height: var(--h-plate); color: var(--paper);
+      font: var(--size-score) var(--font-display); letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums;
+    }
+    .output::before { background: var(--ink); border-left: var(--blade) solid var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="result">
+    <div class="kicker">CANDIDATA A</div>
+    <div class="output"></div>
+  </div>
+  <!-- type="module": este arquivo pode importar outros.
+       Abra pelo Live Server. -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

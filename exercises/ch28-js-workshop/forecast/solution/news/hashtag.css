@@ -1,0 +1,16 @@
+/* Hashtag: canto de baixo à direita, na linha das tarjas. */
+.tag {
+  position: absolute; right: var(--safe-x); bottom: var(--bottom-y);
+  height: var(--h-plate);
+  filter: var(--shadow); visibility: hidden;
+}
+.tag-plate { display: flex; align-items: center; height: 100%;
+  padding: 0 28px 0 22px; overflow: hidden; background: var(--ink);
+  border-left: var(--blade) solid var(--accent);
+  transform: skewX(var(--skew)); transform-origin: right top; }
+.tag-up { display: flex; align-items: baseline;
+  transform: skewX(var(--unskew)); }
+.tag-hash, .tag-text { font: var(--size-score) var(--font-display);
+  letter-spacing: .02em; white-space: nowrap; }
+.tag-hash { margin-right: 4px; color: var(--accent); }
+.tag-text { color: var(--paper); }

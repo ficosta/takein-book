@@ -1,0 +1,59 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.locator",
+  "version": "1.0.0",
+  "name": "News · Locator",
+  "description": "Situação e cidade, com a sigla do estado vazada atrás, no canto de baixo à direita.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "locator.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/locator.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "title": "Situação",
+        "gddType": "select",
+        "enum": [
+          "live",
+          "recorded",
+          "rerun"
+        ],
+        "gddOptions": {
+          "labels": {
+            "live": "Ao vivo",
+            "recorded": "Gravado",
+            "rerun": "Reprise"
+          }
+        },
+        "default": "live"
+      },
+      "city": {
+        "type": "string",
+        "title": "Cidade",
+        "gddType": "single-line",
+        "default": "São Paulo"
+      },
+      "state": {
+        "type": "string",
+        "title": "Sigla do estado",
+        "gddType": "single-line",
+        "maxLength": 2,
+        "default": "SP"
+      }
+    }
+  }
+}

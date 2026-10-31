@@ -1,0 +1,71 @@
+/* EXERCÍCIO 7.1 — Seis formas, só com CSS. */
+
+/* Pronto: o quadro e a grade do mostruário. Não precisa mexer. */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  display: grid;
+  place-items: center;          /* a grade no centro do quadro */
+  font-family: var(--font-data);
+}
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 320px);
+  gap: 72px 48px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  height: 230px;
+}
+.item p {
+  margin: 0;
+  height: var(--h-strip);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+/* TODO 1 — O ponto do AO VIVO: um círculo de 40px.
+ *   width e height 40px, background var(--live),
+ *   border-radius: 50%. */
+.circle { }
+
+/* TODO 2 — A placa inclinada, o ângulo do sistema:
+ *   width 240px, height var(--h-plate), background var(--live),
+ *   display: flex, align-items: center, justify-content: center,
+ *   transform: skewX(var(--skew)).
+ *   O texto inclina junto. Desfaça só nele:
+ *   .slanted span { display: inline-block; transform: skewX(var(--unskew)); }
+ *   e dê ao span cor var(--paper), font-size var(--size-data-l),
+ *   font-weight 700 e letter-spacing var(--track-label). */
+.slanted { }
+
+/* TODO 3 — Seta para a direita, 120 × 80px, fundo var(--accent):
+ *   clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%); */
+.arrow { }
+
+/* TODO 4 — A barra do nome, 280 × 92px. Duas cores com a mesma
+ *          parada, 78%, fazem um corte seco em vez de um degradê:
+ *   background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%); */
+.bar { }
+
+/* TODO 5 — Sombra dura, sem desfoque. Uma caixa de 200 × 62px,
+ *          fundo var(--primary), com
+ *   box-shadow: 6px 8px 0 rgb(0 0 0 / 0.35); */
+.shadow { }
+
+/* TODO 6 — Quadrado de 160px, fundo var(--primary), recortado
+ *          em diagonal no canto de baixo à direita:
+ *   clip-path: polygon(0 0, 100% 0, 100% 60%, 60% 100%, 0 100%); */
+.notch { }

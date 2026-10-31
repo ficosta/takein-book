@@ -1,0 +1,50 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.scoreboard",
+  "version": "1.0.0",
+  "name": "Placar com ações",
+  "description": "Placar de futebol. Os gols entram por ações extras, com o placar no ar.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "home": {
+        "type": "string",
+        "title": "Sigla da casa",
+        "gddType": "single-line",
+        "maxLength": 3,
+        "default": "MER"
+      },
+      "away": {
+        "type": "string",
+        "title": "Sigla de fora",
+        "gddType": "single-line",
+        "maxLength": 3,
+        "default": "ATL"
+      }
+    }
+  },
+  "customActions": [
+    {
+      "id": "home-goal",
+      "name": "Gol da casa",
+      "schema": null
+    },
+    {
+      "id": "away-goal",
+      "name": "Gol de fora",
+      "schema": null
+    },
+    {
+      "id": "reset",
+      "name": "Zerar placar",
+      "schema": null
+    }
+  ]
+}

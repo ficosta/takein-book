@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.hashtag",
+  "version": "1.0.0",
+  "name": "News · Hashtag",
+  "description": "A hashtag da cobertura. Com ou sem #.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "hashtag.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/hashtag.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "tag": {
+        "type": "string",
+        "title": "Hashtag",
+        "gddType": "single-line",
+        "default": "EleiçõesNaTV"
+      }
+    }
+  }
+}

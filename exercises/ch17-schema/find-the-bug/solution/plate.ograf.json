@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.plate",
+  "version": "1.0.0",
+  "name": "Placa corrigida",
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "title": "Título",
+        "gddType": "single-line"
+      },
+      "color": {
+        "type": "string",
+        "title": "Cor",
+        "gddType": "color-rrggbb",
+        "pattern": "^#[0-9a-f]{6}$"
+      },
+      "size": {
+        "type": "string",
+        "title": "Tamanho",
+        "gddType": "select",
+        "enum": [
+          "S",
+          "M",
+          "L"
+        ],
+        "gddOptions": {
+          "labels": {
+            "S": "Pequeno",
+            "M": "Médio",
+            "L": "Grande"
+          }
+        }
+      }
+    }
+  }
+}

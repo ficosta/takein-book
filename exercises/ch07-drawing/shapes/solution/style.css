@@ -1,0 +1,91 @@
+/* EXERCÍCIO 7.1 — solução. */
+
+/* Pronto: o quadro e a grade do mostruário. Não precisa mexer. */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  display: grid;
+  place-items: center;          /* a grade no centro do quadro */
+  font-family: var(--font-data);
+}
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(3, 320px);
+  gap: 72px 48px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  height: 230px;
+}
+.item p {
+  margin: 0;
+  height: var(--h-strip);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  background: var(--live);
+  border-radius: 50%;
+}
+
+.slanted {
+  width: 240px;
+  height: var(--h-plate);
+  background: var(--live);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: skewX(var(--skew));
+}
+/* O texto volta a ficar reto: o ângulo ao contrário. */
+.slanted span {
+  display: inline-block;
+  transform: skewX(var(--unskew));
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+}
+
+.arrow {
+  width: 120px;
+  height: 80px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+}
+
+/* Mesma parada para as duas cores: corte seco. */
+.bar {
+  width: 280px;
+  height: 92px;
+  background: linear-gradient(105deg, var(--ink) 78%, var(--ink-2) 78%);
+}
+
+.shadow {
+  width: 200px;
+  height: 62px;
+  background: var(--primary);
+  box-shadow: 6px 8px 0 rgb(0 0 0 / 0.35);
+}
+
+.notch {
+  width: 160px;
+  height: 160px;
+  background: var(--primary);
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 60% 100%, 0 100%);
+}

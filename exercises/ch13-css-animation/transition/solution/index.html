@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-skin="news">
+<head>
+  <meta charset="UTF-8">
+  <title>Transição</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="stage">
+    <div class="strap">
+      <span class="strap-label">URGENTE</span>
+      <span class="strap-text">Chuva forte em São Paulo</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="enter">Entrar</button>
+    <button id="exit">Sair</button>
+  </div>
+
+  <script>
+    // Pronto: os botões só põem e tiram a classe "on-air".
+    const strap = document.querySelector(".strap");
+    document.querySelector("#enter").onclick =
+      () => strap.classList.add("on-air");
+    document.querySelector("#exit").onclick =
+      () => strap.classList.remove("on-air");
+  </script>
+</body>
+</html>

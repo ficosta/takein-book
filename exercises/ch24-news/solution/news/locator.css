@@ -1,0 +1,31 @@
+/* Locator: a situação e a cidade, no canto de baixo à direita,
+ * com a sigla do estado vazada atrás. */
+.loc {
+  position: absolute; right: var(--safe-x); bottom: var(--bottom-y);
+  width: 520px; height: 120px;
+  filter: var(--shadow); visibility: hidden;
+}
+
+/* A sigla vazada (o "fantasma"): só o contorno, bem apagado. */
+.loc-ghost { position: absolute; right: 0; bottom: 6px;
+  font: var(--size-ghost-s)/1 var(--font-display); color: transparent;
+  -webkit-text-stroke: 3px var(--accent); opacity: 0.28;
+  transform: skewX(var(--skew)); }
+
+.loc-box { position: absolute; right: 30px; bottom: 30px; height: 60px;
+  display: flex; align-items: center; gap: 16px; padding: 0 26px;
+  background: var(--ink); border-left: var(--blade) solid var(--accent);
+  overflow: hidden; }
+.loc-city { font: var(--size-score) var(--font-display); letter-spacing: .03em;
+  color: var(--paper); text-transform: uppercase; white-space: nowrap; }
+
+/* A situação: o select do formulário vira uma classe. */
+.loc-status { display: flex; align-items: center; gap: 10px;
+  font: 600 var(--size-label) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--dim);
+  text-transform: uppercase; white-space: nowrap; }
+.loc-status.live { color: var(--live); }
+.loc-dot { width: 12px; height: 12px; border-radius: 50%;
+  background: currentColor; animation: pulse 1.2s ease-in-out infinite; }
+.loc-status:not(.live) .loc-dot { display: none; }
+@keyframes pulse { 50% { opacity: 0.3; } }

@@ -1,0 +1,74 @@
+/* CAPÍTULO 5 — solução. Cores, fontes e caixas.
+ * As cores, as fontes e os tamanhos vêm do tokens.css: aqui só se usa var(). */
+
+/* ── Pronto: o palco de 1920 × 1080. O fundo é só para enxergar
+ *    (o mesmo "studio" do mini-controller); no ar, ele é transparente. ── */
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(1200px 800px at 65% 35%, #5b6b80, #2b3442 60%, #161b24);
+}
+
+.lt {
+  font-family: var(--font-data);
+}
+
+.lt-ghost {
+  font-family: var(--font-display);
+  font-size: var(--size-ghost);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.lt-kicker {
+  height: var(--h-strip);
+  padding: 0 26px 0 20px;
+  background: var(--accent);
+}
+
+.lt-role {
+  font-size: var(--size-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--on-accent);
+}
+
+.lt-bar {
+  height: var(--h-bar);
+  padding: 0 120px 0 34px;
+  background: var(--ink);
+}
+
+.lt-name {
+  font-family: var(--font-display);
+  font-size: var(--size-display);
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.lt-sub {
+  height: var(--h-strip);
+  padding: 0 26px;
+  background: var(--primary);
+}
+
+.lt-team,
+.lt-shirt {
+  font-size: var(--size-data);
+  font-weight: 600;
+  letter-spacing: var(--track-data);
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.lt-underline {
+  width: 420px;
+  height: var(--rule);
+  background: var(--accent);
+}

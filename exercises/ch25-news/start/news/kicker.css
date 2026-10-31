@@ -1,0 +1,36 @@
+/* Kicker: o tema e a manchete numa barra só, na linha de baixo.
+ * A barra vai de uma margem à outra da área de título. */
+.kck {
+  position: absolute; left: var(--safe-x); bottom: var(--bottom-y);
+  /* A inclinação leva o canto de cima 20 px para a direita
+     (92 px × tan 12°): a barra para 20 px antes da margem. */
+  right: calc(var(--safe-x) + 20px);
+  height: var(--h-bar);
+  filter: var(--shadow); visibility: hidden;
+}
+.kck-bar {
+  display: flex; height: 100%;
+  background: var(--ink);
+  transform: skewX(var(--skew)); transform-origin: left bottom;
+}
+.kck-up { display: block; transform: skewX(var(--unskew)); }
+
+/* O tema tem a largura do próprio texto... */
+.kck-theme { display: flex; align-items: center; padding: 0 30px 0 34px;
+  background: var(--accent); }
+.kck-theme-text { display: block; font: 700 var(--size-data-l) var(--font-data);
+  letter-spacing: var(--track-label); color: var(--on-accent);
+  text-transform: uppercase; white-space: nowrap; }
+
+/* ...e a caixa da manchete ocupa o resto. */
+.kck-box { flex: 1; min-width: 0; display: flex; align-items: center;
+  padding: 0 40px 0 30px; overflow: hidden; }
+.kck-text { font: var(--size-display)/1.15 var(--font-display);
+  letter-spacing: .015em; color: var(--paper); text-transform: uppercase;
+  transform: skewX(var(--unskew));
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Sublinhado de 4 px, como na lower third. */
+.kck-underline { position: absolute; left: 10px; bottom: -8px; width: 420px;
+  height: var(--rule); background: var(--accent);
+  transform: skewX(var(--skew)); transform-origin: left; }

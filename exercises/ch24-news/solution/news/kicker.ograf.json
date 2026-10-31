@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.news.kicker",
+  "version": "1.0.0",
+  "name": "News · Kicker",
+  "description": "Faixa com o tema e a manchete.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "kicker.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnails/kicker.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "theme": {
+        "type": "string",
+        "title": "Tema",
+        "gddType": "single-line",
+        "default": "Economia"
+      },
+      "text": {
+        "type": "string",
+        "title": "Manchete",
+        "gddType": "single-line",
+        "default": "Dólar fecha em queda pelo terceiro dia seguido",
+        "maxLength": 50
+      }
+    }
+  }
+}

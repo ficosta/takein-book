@@ -1,0 +1,63 @@
+/* Cotação: linha de baixo, à direita. Pele news.
+   Ancorada à direita, inclina a partir do canto de cima à direita,
+   para a inclinação entrar na área segura em vez de sair dela. */
+
+.fx {
+  position: absolute; right: var(--safe-x); bottom: var(--bottom-y);
+  display: flex; flex-direction: column; align-items: flex-end;
+  font-family: var(--font-data);
+  filter: var(--shadow);
+  visibility: hidden;
+}
+
+/* A sigla vazada atrás (USD). */
+.fx-ghost {
+  position: absolute; right: 150px; bottom: 96px; z-index: 0;
+  font: var(--size-ghost-s)/1 var(--font-display);
+  color: transparent; -webkit-text-stroke: 3px var(--accent); opacity: .28;
+  transform: skewX(var(--skew));
+}
+
+.fx-stack {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: flex-end;
+  transform: skewX(var(--skew)); transform-origin: right top;
+}
+.fx-stack > div { position: relative; display: flex; align-items: center; overflow: hidden; }
+.fx-up { display: flex; align-items: center; gap: 22px; transform: skewX(var(--unskew)); }
+
+/* Faixa de destaque: a moeda. */
+.fx-kicker { height: var(--h-strip); padding: 0 26px 0 20px; background: var(--accent); }
+.fx-currency {
+  font-weight: 700; font-size: var(--size-label);
+  letter-spacing: var(--track-label); color: var(--on-accent);
+  text-transform: uppercase;
+}
+
+/* Placa do valor, com a lâmina à esquerda. */
+.fx-bar {
+  height: var(--h-bar); padding: 0 34px 0 44px;
+  background: var(--ink);
+}
+.fx-bar::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: var(--blade); background: var(--accent);
+}
+.fx-value {
+  font: var(--size-display)/1.15 var(--font-display); letter-spacing: .015em;
+  color: var(--paper); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.fx-change {
+  font-weight: 700; font-size: var(--size-data-l);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.fx-change.up { color: var(--up); }
+.fx-change.down { color: var(--down); }
+
+/* Sub-barra: a hora da última atualização. */
+.fx-sub { height: var(--h-strip); padding: 0 26px; background: var(--primary); }
+.fx-time {
+  font-weight: 600; font-size: var(--size-data);
+  letter-spacing: var(--track-data); color: var(--paper);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}

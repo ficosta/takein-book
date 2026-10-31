@@ -1,0 +1,10 @@
+{
+  "office": "Prefeito",
+  "city": "São Paulo",
+  "countedShare": 0.874,
+  "candidates": [
+    { "name": "Candidata A", "party": "PXA", "votes": 2481093 },
+    { "name": "Candidato B", "party": "PYB", "votes": 2019577 },
+    { "name": "Candidata C", "party": "PZC", "votes": 388214 }
+  ]
+}

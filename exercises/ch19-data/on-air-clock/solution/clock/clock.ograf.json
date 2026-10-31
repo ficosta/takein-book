@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.clock",
+  "version": "1.0.0",
+  "name": "Relógio no ar",
+  "description": "Hora certa no canto, atualizada pelo próprio gráfico.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "timeZone": {
+        "type": "string",
+        "title": "Fuso",
+        "gddType": "select",
+        "enum": [
+          "America/Sao_Paulo",
+          "America/Manaus",
+          "America/Noronha"
+        ],
+        "gddOptions": {
+          "labels": {
+            "America/Sao_Paulo": "Brasília",
+            "America/Manaus": "Manaus",
+            "America/Noronha": "Fernando de Noronha"
+          }
+        },
+        "default": "America/Sao_Paulo"
+      }
+    }
+  }
+}

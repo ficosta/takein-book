@@ -1,0 +1,56 @@
+/* EXERCÍCIO 6.2 — Cantos seguros.
+ * Coloque cada peça no seu canto. As de cima encostam por
+ * dentro na moldura roxa (title safe: 96px dos lados, 54px do
+ * topo). As de baixo se apoiam na linha pontilhada, a 96px da
+ * base. Use top, right, bottom e left com os tokens:
+ *   --safe-x (96px)   --safe-y (54px)   --bottom-y (96px) */
+
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-data);
+}
+
+/* Áreas de segurança de 1920 × 1080:
+ *   ação (action safe): 3,5% da borda  → 67 × 38 px
+ *   título (title safe): 5% da borda   → 96 × 54 px
+ * A linha de baixo fica mais alta, a 96 px da base: o espaço
+ * abaixo dela é do ticker. */
+.guide { position: absolute; pointer-events: none; }
+.guide-action { inset: 38px 67px; border: 2px dashed var(--faint); }
+.guide-title  { inset: var(--safe-y) var(--safe-x); border: 2px dashed var(--primary); }
+.guide-bottom { left: 0; right: 0; bottom: var(--bottom-y); border-top: 2px dotted var(--primary); }
+
+.piece {
+  position: absolute;
+  height: var(--h-plate);
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--size-data-l);
+  font-weight: 700;
+  letter-spacing: var(--track-data);
+}
+.live { background: var(--live); }
+
+/* TODO 1 — O placar no canto superior esquerdo. */
+.score { }
+
+/* TODO 2 — AO VIVO no canto superior direito. */
+.live { }
+
+/* TODO 3 — O crédito embaixo, à esquerda. */
+.credit { }
+
+/* TODO 4 — A hashtag embaixo, à direita. */
+.hashtag { }
+
+/* TODO 5 — Título no centro exato da tela:
+ *   top: 50%;  left: 50%;  transform: translate(-50%, -50%);
+ *   Tente sem o transform e veja a diferença. */
+.title { }

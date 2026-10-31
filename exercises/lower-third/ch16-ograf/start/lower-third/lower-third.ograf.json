@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ograf.ebu.io/v1/specification/json-schemas/graphics/schema.json",
+  "id": "takein.lower-third",
+  "version": "1.0.0",
+  "name": "Lower third",
+  "description": "Nome, função, time e camisa, com o número vazado atrás. A lower third que atravessa o livro TAKE IN.",
+  "author": {
+    "name": "Felipe Iasi"
+  },
+  "main": "graphic.mjs",
+  "stepCount": 1,
+  "supportsRealTime": true,
+  "supportsNonRealTime": false,
+  "thumbnails": [
+    {
+      "file": "thumbnail.png",
+      "resolution": {
+        "width": 960,
+        "height": 540
+      }
+    }
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Nome",
+        "gddType": "single-line",
+        "default": "Rafael Torres"
+      },
+      "role": {
+        "type": "string",
+        "title": "Função",
+        "gddType": "single-line",
+        "default": "Atacante"
+      },
+      "team": {
+        "type": "string",
+        "title": "Time",
+        "gddType": "single-line",
+        "default": "CD Meridian"
+      },
+      "number": {
+        "type": "integer",
+        "title": "Camisa",
+        "minimum": 1,
+        "maximum": 99,
+        "default": 9
+      }
+    }
+  }
+}
