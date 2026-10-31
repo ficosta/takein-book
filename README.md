@@ -1,5 +1,7 @@
 # TAKE IN — Gráficos broadcast em HTML, CSS e JavaScript
 
+<img src="capa.png" alt="Capa do livro TAKE IN, de Felipe Iasi" width="360">
+
 Arquivos do livro **TAKE IN**, de Felipe Iasi: os exercícios, os pacotes OGraf prontos e a errata.
 
 ## Como baixar
